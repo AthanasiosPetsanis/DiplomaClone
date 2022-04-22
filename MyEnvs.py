@@ -1,5 +1,9 @@
 from gym_minigrid.minigrid import *
 from gym_minigrid.register import register
+import pickle
+
+with open('/usr/local/lib/python3.7/dist-packages/rl-starter-files/storage/actions_taken', 'rb') as fp:
+    course_of_action = pickle.load(fp)
 
 class MyMG_Env(MiniGridEnv):
     """
@@ -25,9 +29,8 @@ class MyMG_Env(MiniGridEnv):
         splitIdx = round(width/2)
         self.grid.vert_wall(splitIdx, 0)
 
-        # Place the agent at a random position and orientation
-        # on the left side of the splitting wall
-        self.place_agent(top=(2, 2), size=(1,1))
+        # Place the agent on the top left corner of the room
+        self.place_agent(top=(1, 1), size=(1,1))
 
         # Place a door in the wall
         doorIdx = round(height/2)
@@ -47,7 +50,9 @@ class MyMG_Env(MiniGridEnv):
 
         self.put_obj(Goal(), round(width/4), height-2)
 
-        self.mission = "open the door, then open the fridge, then take apple and then put apple on table."
+        self.mission = "put apple on table"
+
+
     
     
 
@@ -100,10 +105,11 @@ class Dense_Env(MyMG_Env):
                 self.grid.set(*fwd_pos, self.carrying)
                 self.carrying.cur_pos = fwd_pos
                 self.carrying = None
-            if (fwd_pos == [round(self.size/4), self.size-2]).all() and self.goals_done == 3:
-                self.goals_done = 0
-                done = True
-                reward = self._reward()
+            if self.carrying != None:
+                if (fwd_pos == [round(self.size/4), self.size-2]).all() and self.goals_done == 3 and self.carrying.type=='ball':
+                    self.goals_done = 0
+                    done = True
+                    reward = self._reward()
 
         # Toggle/activate an object
         elif action == self.actions.toggle:
@@ -130,6 +136,7 @@ class Dense_Env(MyMG_Env):
         obs = self.gen_obs()
 
         return obs, reward, done, {}
+    
 
 class Sparse_Env(MyMG_Env):
     def __init__(self):
