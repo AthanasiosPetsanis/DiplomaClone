@@ -2,9 +2,11 @@ from gym_minigrid.minigrid import *
 from gym_minigrid.register import register
 import pickle
 
+# Load TextWorld output
 with open('/usr/local/lib/python3.7/dist-packages/rl-starter-files/storage/actions_taken', 'rb') as fp:
     course_of_action = pickle.load(fp)
 
+# course_of_action = ['open door', 'open fridge', 'take apple from fridge', 'put apple on table']
 class MyMG_Env(MiniGridEnv):
     """
     Environment with a door and key, sparse reward
@@ -17,6 +19,24 @@ class MyMG_Env(MiniGridEnv):
         )
         self.goals_done = 0
         self.size = size;
+
+        self.take_goals, self.open_goals, self.put_goals = [], [], []
+        for act_idx, action in enumerate(course_of_action):
+            action = action.split()
+            act_item = action[1]
+            act_verb = action[0]
+            act_supp = action[-1]
+
+            if act_verb == 'open':
+                self.open_goals.append([act_idx, act_item])
+            elif act_verb == 'take':
+                self.take_goals.append([act_idx, act_item]) # We don't need the act_supp here \
+                # because we care about the distinct name of the item we take not \
+                # where we take it from
+            elif act_verb == 'put':
+                self.put_goals = [act_idx, act_item, act_supp] # Not append because we \
+                # assume only 1 ultimate goal since multiple goals would higly likely mean \
+                # carrying more than 1 object which it can't
     
     def _gen_grid(self, width, height):
         # Create an empty grid
@@ -34,11 +54,15 @@ class MyMG_Env(MiniGridEnv):
 
         # Place a door in the wall
         doorIdx = round(height/2)
-        self.put_obj(Door('yellow'), splitIdx, doorIdx)
+        door = Door('yellow')
+        door.name = 'door'
+        self.put_obj(door, splitIdx, doorIdx)
 
         # Place a ball (i.e. the apple) inside a box (i.e. the fridge) and that in the env
         apple = Ball(color='red')
+        apple.name = 'apple'
         fridge = Box('blue', contains=apple)
+        fridge.name = 'fridge'
         self.put_obj(fridge, round(width*3/4), 1)
 
         # Place a yellow key on the left side
@@ -47,8 +71,11 @@ class MyMG_Env(MiniGridEnv):
         #     top=(0, 0),
         #     size=(splitIdx, height)
         # )
-
-        self.put_obj(Goal(), round(width/4), height-2)
+        self.goal_width = round(width/4)
+        self.goal_height = height-2
+        table = Goal()
+        table.name = 'table'
+        self.put_obj(table, self.goal_width, self.goal_height)
 
         self.mission = "put apple on table"
 
@@ -59,7 +86,9 @@ class MyMG_Env(MiniGridEnv):
 class Dense_Env(MyMG_Env):
     def __init__(self):
         super().__init__(size=6)
+
     def step(self, action):
+
         self.step_count += 1
         reward = 0
         done = False
@@ -95,9 +124,11 @@ class Dense_Env(MyMG_Env):
                     self.carrying.cur_pos = np.array([-1, -1])
                     self.grid.set(*fwd_pos, None)
             if self.carrying != None:
-                if self.carrying.type == 'ball' and self.goals_done == 2:
-                    self.goals_done = 3
-                    reward = self._reward()
+                for act in self.take_goals: # If 2 take actions followed one another there would be a problem \
+                    # but that will never happen in MiniGrid 
+                    if self.goals_done == act[0] and self.carrying.name == act[1]:
+                        self.goals_done += 1
+                        reward = self._reward()
 
         # Drop an object
         elif action == self.actions.drop:
@@ -106,7 +137,8 @@ class Dense_Env(MyMG_Env):
                 self.carrying.cur_pos = fwd_pos
                 self.carrying = None
             if self.carrying != None:
-                if (fwd_pos == [round(self.size/4), self.size-2]).all() and self.goals_done == 3 and self.carrying.type=='ball':
+                if (fwd_pos == [self.goal_width, self.goal_height]).all() \
+                and self.carrying.name == self.put_goals[1] and fwd_cell.name == self.put_goals[-1]:
                     self.goals_done = 0
                     done = True
                     reward = self._reward()
@@ -115,12 +147,11 @@ class Dense_Env(MyMG_Env):
         elif action == self.actions.toggle:
             if fwd_cell:
                 fwd_cell.toggle(self, fwd_pos)
-                if fwd_cell.type == 'door' and self.goals_done == 0:
-                    self.goals_done = 1
-                    reward = self._reward()
-                if fwd_cell.type == 'box' and self.goals_done == 1:
-                    self.goals_done = 2
-                    reward = self._reward()
+                for act in self.open_goals:
+                    if self.goals_done == act[0] and fwd_cell.name == act[1]: # If 2 open actions followed \     
+                    # one another there would be a problem but that will never happen in MiniGrid 
+                        self.goals_done += 1
+                        reward = self._reward()
 
 
         # Done action (not used by default)
@@ -141,7 +172,12 @@ class Dense_Env(MyMG_Env):
 class Sparse_Env(MyMG_Env):
     def __init__(self):
         super().__init__(size=6)
+
     def step(self, action):
+
+        # Get names of end goal item and supporter
+        
+
         self.step_count += 1
         reward = 0
         done = False
@@ -164,6 +200,7 @@ class Sparse_Env(MyMG_Env):
 
         # Move forward
         elif action == self.actions.forward:
+            print(self.put_goals)
             if fwd_cell == None or fwd_cell.can_overlap():
                 self.agent_pos = fwd_pos  
             if fwd_cell != None and fwd_cell.type == 'lava':
@@ -184,7 +221,8 @@ class Sparse_Env(MyMG_Env):
                 self.carrying.cur_pos = fwd_pos
                 self.carrying = None
             if self.carrying != None:
-                if (fwd_pos == [round(self.size/4), self.size-2]).all() and self.carrying.type == 'ball':
+                if (fwd_pos == [self.goal_width, self.goal_height]).all() \
+                and self.carrying.name == self.put_goals[1] and fwd_cell.name == self.put_goals[-1]:
                     done = True
                     reward = self._reward()
 
