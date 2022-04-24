@@ -17,7 +17,8 @@ COLORS = {
     'blue'  : np.array([0, 0, 255]),
     'purple': np.array([112, 39, 195]),
     'yellow': np.array([255, 255, 0]),
-    'grey'  : np.array([100, 100, 100])
+    'grey'  : np.array([100, 100, 100]), 
+    'brown' : np.array([101, 67, 33])
 }
 
 COLOR_NAMES = sorted(list(COLORS.keys()))
@@ -29,7 +30,8 @@ COLOR_TO_IDX = {
     'blue'  : 2,
     'purple': 3,
     'yellow': 4,
-    'grey'  : 5
+    'grey'  : 5,
+    'brown' : 6
 }
 
 IDX_TO_COLOR = dict(zip(COLOR_TO_IDX.values(), COLOR_TO_IDX.keys()))
@@ -153,11 +155,11 @@ class WorldObj:
         raise NotImplementedError
 
 class Goal(WorldObj):
-    def __init__(self):
-        super().__init__('goal', 'green')
+    def __init__(self, color='green'):
+        super().__init__('goal', color=color)
 
     def can_overlap(self):
-        return True
+        return False
 
     def render(self, img):
         fill_coords(img, point_in_rect(0, 1, 0, 1), COLORS[self.color])
@@ -377,8 +379,8 @@ class Grid:
         self.grid[j * self.width + i] = v
 
     def get(self, i, j):
-        assert i >= 0 and i < self.width
-        assert j >= 0 and j < self.height
+        assert i >= 0 and i <= self.width
+        assert j >= 0 and j <= self.height
         return self.grid[j * self.width + i]
 
     def horz_wall(self, x, y, length=None, obj_type=Wall):

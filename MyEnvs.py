@@ -1,12 +1,15 @@
+from turtle import color
 from gym_minigrid.minigrid import *
 from gym_minigrid.register import register
 import pickle
 
-# Load TextWorld output
-with open('/usr/local/lib/python3.7/dist-packages/rl-starter-files/storage/actions_taken', 'rb') as fp:
-    course_of_action = pickle.load(fp)
+from matplotlib.pyplot import cla
 
-# course_of_action = ['open door', 'open fridge', 'take apple from fridge', 'put apple on table']
+# Load TextWorld output
+# with open('/usr/local/lib/python3.7/dist-packages/rl-starter-files/storage/actions_taken', 'rb') as fp:
+#     course_of_action = pickle.load(fp)
+
+course_of_action = ['open door', 'open fridge', 'take apple from fridge', 'put apple on table']
 class MyMG_Env(MiniGridEnv):
     """
     Environment with a door and key, sparse reward
@@ -15,10 +18,9 @@ class MyMG_Env(MiniGridEnv):
     def __init__(self, size=8):
         super().__init__(
             grid_size=size,
-            max_steps=10*size*size
+            max_steps=1000
         )
         self.goals_done = 0
-        self.size = size;
 
         self.take_goals, self.open_goals, self.put_goals = [], [], []
         for act_idx, action in enumerate(course_of_action):
@@ -37,7 +39,68 @@ class MyMG_Env(MiniGridEnv):
                 self.put_goals = [act_idx, act_item, act_supp] # Not append because we \
                 # assume only 1 ultimate goal since multiple goals would higly likely mean \
                 # carrying more than 1 object which it can't
-    
+
+
+class Easy_Env(MyMG_Env):
+    def __init__(self, size=5):
+        super().__init__(size)
+    def _gen_grid(self, width, height):
+        # Create an empty grid
+        self.grid = Grid(width, height)
+
+        # Generate the surrounding walls
+        self.grid.wall_rect(0, 0, width, height)
+
+        # Place the agent on the top left corner of the room
+        self.place_agent(top=(1, 1), size=(1,1))
+
+        # Place a ball (i.e. the apple)
+        apple = Ball(color='red')
+        apple.name = 'apple'
+        self.put_obj(apple, width-2, 1)
+
+        self.goal_width = round(width/4)
+        self.goal_height = height-2
+        table = Goal()
+        table.name = 'table'
+        self.put_obj(table, self.goal_width, self.goal_height)
+
+        self.mission = "put apple on table"
+
+class Easy_Env_2(MyMG_Env):
+    def __init__(self, size=5):
+        super().__init__(size)
+    def _gen_grid(self, width, height):
+        # Create an empty grid
+        self.grid = Grid(width, height)
+
+        # Generate the surrounding walls
+        self.grid.wall_rect(0, 0, width, height)
+
+        # Place the agent on the top left corner of the room
+        self.place_agent(top=(1, 1), size=(1,1))
+
+        # Place a ball (i.e. the apple)
+        apple = Ball(color='red')
+        apple.name = 'apple'
+        self.put_obj(apple, width-1, 1)
+
+        # Place a door
+        door = Door(color='yellow')
+        door.name = 'door'
+        self.put_obj(door, width-2, 1)
+
+        self.goal_width = round(width/4)
+        self.goal_height = height-2
+        table = Goal()
+        table.name = 'table'
+        self.put_obj(table, self.goal_width, self.goal_height)
+
+        self.mission = "put apple on table"
+
+class Medium_Env(MyMG_Env):
+    def __init__(self):
+        super().__init__(size=6)
     def _gen_grid(self, width, height):
         # Create an empty grid
         self.grid = Grid(width, height)
@@ -65,27 +128,90 @@ class MyMG_Env(MiniGridEnv):
         fridge.name = 'fridge'
         self.put_obj(fridge, round(width*3/4), 1)
 
-        # Place a yellow key on the left side
-        # self.place_obj(
-        #     obj=Key('yellow'),
-        #     top=(0, 0),
-        #     size=(splitIdx, height)
-        # )
         self.goal_width = round(width/4)
         self.goal_height = height-2
         table = Goal()
         table.name = 'table'
         self.put_obj(table, self.goal_width, self.goal_height)
 
-        self.mission = "put apple on table"
+        self.mission = "put apple on table" 
+    
+
+class Hard_Env(MyMG_Env):
+    def __init__(self):
+        super().__init__(size=17)
+    def _gen_grid(self, width, height):
+        # Create the grid
+        self.grid = Grid(width, height)
+
+        room_w = width // 2
+        room_h = height // 2
+        room_mid_w = room_w // 2
+        room_mid_h = room_h // 2
+
+        # Generate the surrounding walls
+        self.grid.horz_wall(0, 0)
+        self.grid.horz_wall(0, height - 1)
+        self.grid.vert_wall(0, 0)
+        self.grid.vert_wall(width - 1, 0)
 
 
-    
-    
+        
+        # For each row of rooms
+        for j in range(0, 2):
+
+            # For each column
+            for i in range(0, 2):
+                xL = i * room_w
+                yT = j * room_h
+                xR = xL + room_w
+                yB = yT + room_h
+
+                # Bottom wall
+                if i + 1 < 2:
+                    self.grid.vert_wall(xR, yT, room_h)
+
+                # Bottom wall
+                if j + 1 < 2:
+                    self.grid.horz_wall(xL, yB, room_w)
+
+        # Define doors
+        doorA_B = Door(color='yellow')
+        doorC_D = Door(color='yellow')
+        doorA_C = Door(color='yellow')
+        doorB_D = Door(color='yellow')
+
+        # Place doors
+        self.put_obj(doorA_B, room_w, room_mid_h)
+        self.put_obj(doorC_D, room_w, room_mid_h+room_h)
+        self.put_obj(doorA_C, room_mid_w, room_h)
+        self.put_obj(doorB_D, room_mid_w+room_h, room_h)
+
+        # Make & Place counter
+        counter = Goal(color='brown')
+        for i in range(room_h-1):
+            self.put_obj(counter, room_w+1+i, 1)
+        self.put_obj(counter, room_w+1, 2)
+        self.put_obj(counter, room_w+1, 3)
+
+        # Make & Place table
+        table_B = Goal()
+        table_B_size = 3
+        for i in range(table_B_size):
+            for j in range(table_B_size):
+                self.put_obj(table_B, 3+i+room_w, 3+j)          
+
+        # Place agent
+        self.place_agent(top=(1, 1), size=(1,1))
+
+        # Place goal
+        self.put_obj(Goal(), 2*room_w-1, 2*room_h-1)
+        self.mission = 'Reach the goal'
+ 
 
 class Dense_Env(MyMG_Env):
     def __init__(self):
-        super().__init__(size=6)
+        super().__init__()
 
     def step(self, action):
 
@@ -138,7 +264,9 @@ class Dense_Env(MyMG_Env):
                 self.carrying = None
             if self.carrying != None:
                 if (fwd_pos == [self.goal_width, self.goal_height]).all() \
-                and self.carrying.name == self.put_goals[1] and fwd_cell.name == self.put_goals[-1]:
+                and self.goals_done == self.put_goals[0] \
+                and self.carrying.name == self.put_goals[1] \
+                and fwd_cell.name == self.put_goals[2]:
                     self.goals_done = 0
                     done = True
                     reward = self._reward()
@@ -171,13 +299,10 @@ class Dense_Env(MyMG_Env):
 
 class Sparse_Env(MyMG_Env):
     def __init__(self):
-        super().__init__(size=6)
+        super().__init__()
 
     def step(self, action):
-
         # Get names of end goal item and supporter
-        
-
         self.step_count += 1
         reward = 0
         done = False
@@ -248,13 +373,78 @@ class Sparse_Env(MyMG_Env):
 
         return obs, reward, done, {}
     
+# Easy envs
+class Dense_Easy(Dense_Env, Easy_Env):
+    def __init__(self):
+        super().__init__()
+
+class Sparse_Easy(Sparse_Env, Easy_Env):
+    def __init__(self):
+        super().__init__()
 
 register(
-    id='MiniGrid-Dense_Env-v0',
-    entry_point='gym_minigrid.envs.MyEnvs:Dense_Env'
+    id='MiniGrid-Dense_Easy-v0',
+    entry_point='gym_minigrid.envs.MyEnvs:Dense_Easy'
 )
 
 register(
-    id='MiniGrid-Sparse_Env-v0',
-    entry_point='gym_minigrid.envs.MyEnvs:Sparse_Env'
+    id='MiniGrid-Sparse_Easy-v0',
+    entry_point='gym_minigrid.envs.MyEnvs:Sparse_Easy'
+)
+
+# Easy 2
+class Dense_Easy_2(Dense_Env, Easy_Env_2):
+    def __init__(self):
+        super().__init__()
+
+class Sparse_Easy_2(Sparse_Env, Easy_Env_2):
+    def __init__(self):
+        super().__init__()
+
+register(
+    id='MiniGrid-Dense_Easy_2-v0',
+    entry_point='gym_minigrid.envs.MyEnvs:Dense_Easy_2'
+)
+
+register(
+    id='MiniGrid-Sparse_Easy_2-v0',
+    entry_point='gym_minigrid.envs.MyEnvs:Sparse_Easy_2'
+)
+
+# Medium
+class Dense_Medium(Dense_Env, Medium_Env):
+    def __init__(self):
+        super().__init__()
+
+class Sparse_Medium(Sparse_Env, Medium_Env):
+    def __init__(self):
+        super().__init__()
+
+register(
+    id='MiniGrid-Dense_Medium-v0',
+    entry_point='gym_minigrid.envs.MyEnvs:Dense_Medium'
+)
+
+register(
+    id='MiniGrid-Sparse_Medium-v0',
+    entry_point='gym_minigrid.envs.MyEnvs:Sparse_Medium'
+)
+
+# Hard
+class Dense_Hard(Dense_Env, Hard_Env):
+    def __init__(self):
+        super().__init__()
+
+class Sparse_Hard(Sparse_Env, Hard_Env):
+    def __init__(self):
+        super().__init__()
+
+register(
+    id='MiniGrid-Dense_Hard-v0',
+    entry_point='gym_minigrid.envs.MyEnvs:Dense_Hard'
+)
+
+register(
+    id='MiniGrid-Sparse_Hard-v0',
+    entry_point='gym_minigrid.envs.MyEnvs:Sparse_Hard'
 )
