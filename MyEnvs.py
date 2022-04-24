@@ -325,7 +325,6 @@ class Sparse_Env(MyMG_Env):
 
         # Move forward
         elif action == self.actions.forward:
-            print(self.put_goals)
             if fwd_cell == None or fwd_cell.can_overlap():
                 self.agent_pos = fwd_pos  
             if fwd_cell != None and fwd_cell.type == 'lava':
