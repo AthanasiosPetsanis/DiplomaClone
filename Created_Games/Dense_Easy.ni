@@ -20,27 +20,27 @@ The r_0 are rooms.
 Understand "LivingRoom" as r_0.
 The internal name of r_0 is "LivingRoom".
 The printed name of r_0 is "-= Livingroom =-".
-The LivingRoom part 0 is some text that varies. The LivingRoom part 0 is "Well I'll be, you are in the place we're calling the LivingRoom. I guess you better just go and list everything you see here.
+The LivingRoom part 0 is some text that varies. The LivingRoom part 0 is "You are in a LivingRoom. A typical one. You begin to take stock of what's here.
 
- You bend down to tie your shoe. When you stand up, you notice a table. The table is usual.[if there is something on the s_0] On the table you see [a list of things on the s_0].[end if]".
-The LivingRoom part 1 is some text that varies. The LivingRoom part 1 is "[if there is nothing on the s_0] But oh no! there's nothing on this piece of garbage.[end if]".
+ You can make out a table. The table is standard.[if there is something on the s_0] On the table you can see [a list of things on the s_0].[end if]".
+The LivingRoom part 1 is some text that varies. The LivingRoom part 1 is "[if there is nothing on the s_0] However, the table, like an empty table, has nothing on it.[end if]".
 The LivingRoom part 2 is some text that varies. The LivingRoom part 2 is "
 
 ".
 The description of r_0 is "[LivingRoom part 0][LivingRoom part 1][LivingRoom part 2]".
 
 
-The f_0 are foods.
-The f_0 are privately-named.
+The o_0 are object-likes.
+The o_0 are privately-named.
 The r_0 are rooms.
 The r_0 are privately-named.
 The s_0 are supporters.
 The s_0 are privately-named.
 
-The description of f_0 is "You couldn't pay me to eat that usual thing.".
-The printed name of f_0 is "apple".
-Understand "apple" as f_0.
-The f_0 is in r_0.
+The description of o_0 is "The apple looks well matched to everything else here".
+The printed name of o_0 is "apple".
+Understand "apple" as o_0.
+The o_0 is in r_0.
 The description of s_0 is "The table is balanced.".
 The printed name of s_0 is "table".
 Understand "table" as s_0.

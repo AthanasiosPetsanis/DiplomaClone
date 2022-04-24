@@ -20,7 +20,7 @@ The r_1 and the r_0 are rooms.
 Understand "Kitchen" as r_1.
 The internal name of r_1 is "Kitchen".
 The printed name of r_1 is "-= Kitchen =-".
-The Kitchen part 0 is some text that varies. The Kitchen part 0 is "You are in a Kitchen. A typical one.
+The Kitchen part 0 is some text that varies. The Kitchen part 0 is "You've just sauntered into a Kitchen.
 
 
 
@@ -32,10 +32,10 @@ west of r_1 and east of r_0 is a door called d_0.
 Understand "LivingRoom" as r_0.
 The internal name of r_0 is "LivingRoom".
 The printed name of r_0 is "-= Livingroom =-".
-The LivingRoom part 0 is some text that varies. The LivingRoom part 0 is "You find yourself in a LivingRoom. A standard kind of place. You start to take note of what's in the room.
+The LivingRoom part 0 is some text that varies. The LivingRoom part 0 is "You arrive in a LivingRoom. An ordinary one.
 
- Oh wow! Is that what I think it is? It is! It's a table. Make a note of this, you might have to put stuff on or in it later on. The table is normal.[if there is something on the s_0] On the table you see [a list of things on the s_0]. You can't wait to tell the folks at home about this![end if]".
-The LivingRoom part 1 is some text that varies. The LivingRoom part 1 is "[if there is nothing on the s_0] But the thing hasn't got anything on it. Hm. Oh well[end if]".
+ You smell an interesting smell, and follow it to a table. The table is ordinary.[if there is something on the s_0] On the table you can make out [a list of things on the s_0].[end if]".
+The LivingRoom part 1 is some text that varies. The LivingRoom part 1 is "[if there is nothing on the s_0] But oh no! there's nothing on this piece of junk. What, you think everything in TextWorld should have stuff on it?[end if]".
 The LivingRoom part 2 is some text that varies. The LivingRoom part 2 is "
 
  There is [if d_0 is open]an open[otherwise]a closed[end if]".
@@ -46,22 +46,22 @@ east of r_0 and west of r_1 is a door called d_0.
 
 The d_0 are doors.
 The d_0 are privately-named.
-The f_0 are foods.
-The f_0 are privately-named.
+The o_0 are object-likes.
+The o_0 are privately-named.
 The r_1 and the r_0 are rooms.
 The r_1 and the r_0 are privately-named.
 The s_0 are supporters.
 The s_0 are privately-named.
 
-The description of d_0 is "The door looks well-built. [if open]It is open.[else if closed]It is closed.[otherwise]It is locked.[end if]".
+The description of d_0 is "it is what it is, a door [if open]You can see inside it.[else if closed]You can't see inside it because the lid's in your way.[otherwise]There is a lock on it.[end if]".
 The printed name of d_0 is "door".
 Understand "door" as d_0.
 The d_0 is closed.
-The description of f_0 is "You couldn't pay me to eat that standard thing.".
-The printed name of f_0 is "apple".
-Understand "apple" as f_0.
-The f_0 is in r_1.
-The description of s_0 is "The table is reliable.".
+The description of o_0 is "The apple appears to be out of place here".
+The printed name of o_0 is "apple".
+Understand "apple" as o_0.
+The o_0 is in r_1.
+The description of s_0 is "The table is solidly built.".
 The printed name of s_0 is "table".
 Understand "table" as s_0.
 The s_0 is in r_0.
