@@ -176,5 +176,43 @@ class Q_agent():
             else:
                 break
 
-    def test():
-        return
+    def test(self, render=False):
+        obj = self.obj; rooms = self.rooms
+        
+        obj_len = len(obj)
+        actions_taken = []
+        step = 0
+        goals_done = [0] * obj_len
+        obs, infos = self.env.reset()
+
+
+        while True:
+            step += 1
+            if render:
+                self.env.render()
+
+            st_index, commands, cmd_len = self.check_state(infos)
+            
+            action_index = self.Q_matrix[st_index].argmax() 
+            action = commands[action_index]
+            print(f"Action taken in step {step}: {action}")
+            actions_taken.append(action)
+            
+            obs, reward, done, infos = self.env.step(action)
+
+            _ = self.check_state(infos)
+            
+            obj_len = len(obj)
+            for i in range(obj_len):
+                if action==obj[i] and infos['location'].lower()==rooms[i].lower():
+                    goals_done[i] = 1
+                    if sum(goals_done)==obj_len: done = True
+
+            if done:
+                print(f"Finished in {infos['moves']} moves")
+                print("Actions taken:")
+                for action in actions_taken:
+                    print(f"{action} >", end=" ")
+                break
+
+        return actions_taken
