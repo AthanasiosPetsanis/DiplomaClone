@@ -23,7 +23,7 @@ from textworld import EnvInfos
 
 # -------------------------------------
 
-# Load Game
+# Load Game function
 def load_game(game_file, max_steps=100):
 
     request_infos = EnvInfos(inventory=True, admissible_commands=True, entities=True, won=True, lost=True, intermediate_reward=True,
@@ -40,6 +40,8 @@ def load_game(game_file, max_steps=100):
     score, moves, done = 0, 0, False
     return env, obs, infos
 
+
+# ------------- Pre-Process Data Functions -------------
 def find_location(desc):
     desc = desc.split()
     location = desc[1]
@@ -67,3 +69,4 @@ def inv_process(inventory):
         pass
     inventory = list(filter(filterer, inventory))
     return inventory 
+
