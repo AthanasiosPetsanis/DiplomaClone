@@ -81,7 +81,7 @@ class Q_agent():
             for ep in range(max_eps):
                 obs, infos = self.env.reset()
                 step = 0
-                total_eps += 1
+                self.total_eps += 1
                 try:
                     goals_done = [0] * obj_len
                 except: obj_len = 0
@@ -138,7 +138,7 @@ class Q_agent():
                 # print(States)
                 # print(Q_matrix)
 
-                expl = min_expl + (max_expl - min_expl)*np.exp(-expl_decay_rate*total_eps) 
+                expl = min_expl + (max_expl - min_expl)*np.exp(-expl_decay_rate*self.total_eps) 
 
                 self.moves_history.append(infos['moves'])
                 if (ep+1)%10==0:
