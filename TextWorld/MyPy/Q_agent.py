@@ -74,7 +74,7 @@ class Q_agent():
         if manual:
             self.ask_obj()
             things = self.things; rooms = self.rooms; obj = self.obj
-            obj_len = len(obj)
+            self.obj_len = len(obj)
 
 
         for epoch in range(max_epochs):
@@ -83,8 +83,8 @@ class Q_agent():
                 step = 0
                 self.total_eps += 1
                 try:
-                    goals_done = [0] * obj_len
-                except: obj_len = 0
+                    goals_done = [0] * self.obj_len
+                except: self.obj_len = 0
                 Ep_indexes = []
 
                 while True:
@@ -119,11 +119,11 @@ class Q_agent():
                     new_st_index, _, _ = self.check_state(infos)
 
                     try:
-                        for i in range(obj_len):
+                        for i in range(self.obj_len):
                             if action==obj[i] and infos['location'].lower()==rooms[i].lower() and goals_done[i]==0:
                                 reward += 200 #/step
                                 goals_done[i] = 1
-                                if sum(goals_done)==obj_len: done = True
+                                if sum(goals_done)==self.obj_len: done = True
                     except: print('Unable to reward the inputed goal')
 
                     Ep_indexes.append([st_index, action_index, reward])
@@ -178,11 +178,11 @@ class Q_agent():
 
     def test(self, render=False):
         obj = self.obj; rooms = self.rooms
-        
-        obj_len = len(obj)
+
+        self.obj_len = len(obj)
         actions_taken = []
         step = 0
-        goals_done = [0] * obj_len
+        goals_done = [0] * self.obj_len
         obs, infos = self.env.reset()
 
 
@@ -202,11 +202,11 @@ class Q_agent():
 
             _ = self.check_state(infos)
             
-            obj_len = len(obj)
-            for i in range(obj_len):
+            self.obj_len = len(obj)
+            for i in range(self.obj_len):
                 if action==obj[i] and infos['location'].lower()==rooms[i].lower():
                     goals_done[i] = 1
-                    if sum(goals_done)==obj_len: done = True
+                    if sum(goals_done)==self.obj_len: done = True
 
             if done:
                 print(f"Finished in {infos['moves']} moves")
