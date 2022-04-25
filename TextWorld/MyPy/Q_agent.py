@@ -138,11 +138,11 @@ class Q_agent():
                 # print(States)
                 # print(Q_matrix)
 
-                expl = min_expl + (max_expl - min_expl)*np.exp(-expl_decay_rate*self.total_eps) 
+                self.expl = min_expl + (max_expl - min_expl)*np.exp(-expl_decay_rate*self.total_eps) 
 
                 self.moves_history.append(infos['moves'])
                 if (ep+1)%10==0:
-                    self.expl_history.append(expl)
+                    self.expl_history.append(self.expl)
                     self.avg_moves.append(sum(self.moves_history[-10::])/10)
                     
 
