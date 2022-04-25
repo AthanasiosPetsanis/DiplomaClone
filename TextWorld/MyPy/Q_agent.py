@@ -98,7 +98,7 @@ class Q_agent():
                     st_index, commands, cmd_len = self.check_state(infos)
 
                     # Randomly choose whether to explore or exploit based on probability expl
-                    if random.uniform(0,1) > expl:
+                    if random.uniform(0,1) > self.expl:
                         # Exploit
                         action_index = self.Q_matrix[st_index].argmax() 
                         action = commands[action_index]
