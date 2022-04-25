@@ -39,3 +39,31 @@ def load_game(game_file, max_steps=100):
 
     score, moves, done = 0, 0, False
     return env, obs, infos
+
+def find_location(desc):
+    desc = desc.split()
+    location = desc[1]
+    return location
+    
+def cmd_remover(ad_cmds):
+    try:
+        ad_cmds.remove("inventory")
+        ad_cmds.remove("look")
+    except:
+        pass
+    ad_cmds = [cmd for cmd in ad_cmds if 'examine' not in cmd]
+
+    return ad_cmds
+
+def filterer(str_):
+    ban_list = ['You', 'are', 'carrying:', 'carrying', 'nothing.', 'a', 'an']
+    return False if str_ in ban_list else True
+    
+def inv_process(inventory):
+    
+    try:
+        inventory = inventory.split()
+    except:
+        pass
+    inventory = list(filter(filterer, inventory))
+    return inventory 
