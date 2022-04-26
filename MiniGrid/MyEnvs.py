@@ -6,7 +6,7 @@ import pickle
 from matplotlib.pyplot import cla
 
 # Load TextWorld output
-with open('/usr/local/lib/python3.7/dist-packages/rl-starter-files/storage/actions_taken', 'rb') as fp:
+with open('/usr/local/lib/python3.7/dist-packages/rl_starter_files/storage/actions_taken', 'rb') as fp:
     course_of_action = pickle.load(fp)
 
 # course_of_action = ['open door', 'open fridge', 'take apple from fridge', 'put apple on table']
