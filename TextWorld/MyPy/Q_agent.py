@@ -68,13 +68,18 @@ class Q_agent():
             new_st_index = st_index
     
     def train(self, max_epochs=5, max_eps=1000, render=False, min_expl=0.01, max_expl=1, manual=False,
-            learning_rate=0.8, expl_decay_rate=0.005, gamma=0.95, title='Q_Agent', neg_reward=0):
+            learning_rate=0.8, expl_decay_rate=0.005, gamma=0.95, title='Q_Agent', neg_reward=0, user_input=None):
 
         start = time.time()
-        if manual:
+        if manual and user_input != None:
+            print('Either manual input a command via the command line or inputed using user_input argument, but not both')
+        elif manual:
             self.ask_obj()
-            things = self.things; rooms = self.rooms; obj = self.obj
-            self.obj_len = len(obj)
+            rooms = self.rooms; obj = self.obj
+            self.obj_len = len(self.obj)
+        elif user_input != None:
+            [self.things, self.rooms, self.obj] = user_input
+            rooms = self.rooms; obj = self.obj
 
 
         for epoch in range(max_epochs):
