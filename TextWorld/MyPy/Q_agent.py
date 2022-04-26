@@ -77,11 +77,17 @@ class Q_agent():
             self.ask_obj()
             rooms = self.rooms; obj = self.obj
             self.obj_len = len(self.obj)
+            print(self.things)
+            print(self.rooms)
+            print(self.obj)
         elif user_input != None:
             self.things = [user_input[0]]; self.rooms = [user_input[1]]
             things = self.things; rooms = self.rooms
             self.obj = [f'put {things} on {user_input[2]}']; obj = self.obj
             self.obj_len = len(self.obj)
+            print(self.things)
+            print(self.rooms)
+            print(self.obj)
 
         for epoch in range(max_epochs):
             for ep in range(max_eps):
