@@ -5,9 +5,9 @@ import torch_ac
 import tensorboardX
 import sys
 
-import utils
-from utils import device
-from model import ACModel
+import rl_starter_files.utils
+from rl_starter_files.utils import device
+from rl_starter_files.model import ACModel
 
 
 # Parse arguments
