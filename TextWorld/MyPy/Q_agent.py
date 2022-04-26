@@ -75,12 +75,13 @@ class Q_agent():
             print('Either manual input a command via the command line or inputed using user_input argument, but not both')
         elif manual:
             self.ask_obj()
-            rooms = self.rooms; obj = self.obj
+            things = self.things; rooms = self.rooms; obj = self.obj
             self.obj_len = len(self.obj)
         elif user_input != None:
             [self.things, self.rooms] = user_input[0:2]
-            things = self.things; rooms = self.rooms;
+            things = self.things; rooms = self.rooms
             self.obj = f'put {things} on {user_input[2]}'; obj = self.obj
+            print(self.obj)
 
         for epoch in range(max_epochs):
             for ep in range(max_eps):
