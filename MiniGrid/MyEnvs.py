@@ -10,19 +10,8 @@ with open('/usr/local/lib/python3.7/dist-packages/rl-starter-files/storage/actio
     action_courses = pickle.load(fp)
 
 # actions_taken = ['take apple', 'put apple on table'] # Wrong right now
-class MyMG_Env(MiniGridEnv):
-    """
-    Environment with a door and key, sparse reward
-    """
 
-    def __init__(self, size=8):
-        super().__init__(
-            grid_size=size,
-            max_steps=1000
-        )   
-        self.goals_done = 0
-        
-        def find_goals(self, course_of_action):
+def find_goals(self, course_of_action):
             self.take_goals, self.open_goals, self.put_goals = [], [], []
             for act_idx, action in enumerate(course_of_action):
                 action = action.split()
@@ -41,13 +30,27 @@ class MyMG_Env(MiniGridEnv):
                     # assume only 1 ultimate goal since multiple goals would higly likely mean \
                     # carrying more than 1 object which it can't
 
+class MyMG_Env(MiniGridEnv):
+    """
+    Environment with a door and key, sparse reward
+    """
+
+    def __init__(self, size=8):
+        super().__init__(
+            grid_size=size,
+            max_steps=1000
+        )   
+        self.goals_done = 0
+
 
 class Easy_Env(MyMG_Env):
     def __init__(self, size=5):
         super().__init__(size)
+        course_of_action = action_courses['Easy']
+        find_goals(self, course_of_action)
+
     def _gen_grid(self, width, height):
         # Create an empty grid
-        self.find_goals()
         self.grid = Grid(width, height)
 
         # Generate the surrounding walls
@@ -72,6 +75,9 @@ class Easy_Env(MyMG_Env):
 class Easy_Env_2(MyMG_Env):
     def __init__(self, size=5):
         super().__init__(size)
+        course_of_action = action_courses['Easy_2']
+        find_goals(self, course_of_action)
+
     def _gen_grid(self, width, height):
         # Create an empty grid
         self.grid = Grid(width, height)
@@ -378,14 +384,10 @@ class Sparse_Env(MyMG_Env):
 class Dense_Easy(Dense_Env, Easy_Env):
     def __init__(self):
         super().__init__()
-        course_of_action = action_courses['Dense_Easy']
-        self.find_goals(course_of_action) 
 
 class Sparse_Easy(Sparse_Env, Easy_Env):
     def __init__(self):
         super().__init__()
-        course_of_action = action_courses['Sparse_Easy']
-        self.find_goals(course_of_action) 
 
 register(
     id='MiniGrid-Dense_Easy-v0',
@@ -401,14 +403,10 @@ register(
 class Dense_Easy_2(Dense_Env, Easy_Env_2):
     def __init__(self):
         super().__init__()
-        course_of_action = action_courses['Dense_Easy_2']
-        self.find_goals(course_of_action) 
 
 class Sparse_Easy_2(Sparse_Env, Easy_Env_2):
     def __init__(self):
         super().__init__()
-        course_of_action = action_courses['Sparse_Easy_2']
-        self.find_goals(course_of_action) 
 
 register(
     id='MiniGrid-Dense_Easy_2-v0',
