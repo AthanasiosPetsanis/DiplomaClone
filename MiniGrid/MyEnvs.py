@@ -6,8 +6,8 @@ import pickle
 from matplotlib.pyplot import cla
 
 # Load TextWorld output
-with open('/usr/local/lib/python3.7/dist-packages/rl-starter-files/storage/actions_taken', 'rb') as fp:
-    actions_taken = pickle.load(fp)
+with open('/usr/local/lib/python3.7/dist-packages/rl-starter-files/storage/action_courses', 'rb') as fp:
+    action_courses = pickle.load(fp)
 
 # actions_taken = ['take apple', 'put apple on table'] # Wrong right now
 class MyMG_Env(MiniGridEnv):
@@ -378,13 +378,13 @@ class Sparse_Env(MyMG_Env):
 class Dense_Easy(Dense_Env, Easy_Env):
     def __init__(self):
         super().__init__()
-        course_of_action = actions_taken['Dense_Easy']
+        course_of_action = action_courses['Dense_Easy']
         self.find_goals(course_of_action) 
 
 class Sparse_Easy(Sparse_Env, Easy_Env):
     def __init__(self):
         super().__init__()
-        course_of_action = actions_taken['Sparse_Easy']
+        course_of_action = action_courses['Sparse_Easy']
         self.find_goals(course_of_action) 
 
 register(
@@ -401,13 +401,13 @@ register(
 class Dense_Easy_2(Dense_Env, Easy_Env_2):
     def __init__(self):
         super().__init__()
-        course_of_action = actions_taken['Dense_Easy_2']
+        course_of_action = action_courses['Dense_Easy_2']
         self.find_goals(course_of_action) 
 
 class Sparse_Easy_2(Sparse_Env, Easy_Env_2):
     def __init__(self):
         super().__init__()
-        course_of_action = actions_taken['Sparse_Easy_2']
+        course_of_action = action_courses['Sparse_Easy_2']
         self.find_goals(course_of_action) 
 
 register(
