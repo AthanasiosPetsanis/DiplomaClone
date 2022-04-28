@@ -7,9 +7,9 @@ from matplotlib.pyplot import cla
 
 # Load TextWorld output
 with open('/usr/local/lib/python3.7/dist-packages/rl-starter-files/storage/actions_taken', 'rb') as fp:
-    course_of_action = pickle.load(fp)
+    actions_taken = pickle.load(fp)
 
-# course_of_action = ['open door', 'open fridge', 'take apple from fridge', 'put apple on table']
+# actions_taken = ['take apple', 'put apple on table'] # Wrong right now
 class MyMG_Env(MiniGridEnv):
     """
     Environment with a door and key, sparse reward
@@ -19,26 +19,27 @@ class MyMG_Env(MiniGridEnv):
         super().__init__(
             grid_size=size,
             max_steps=1000
-        )
+        )   
         self.goals_done = 0
+        
+        def find_goals(self, course_of_action):
+            self.take_goals, self.open_goals, self.put_goals = [], [], []
+            for act_idx, action in enumerate(course_of_action):
+                action = action.split()
+                act_item = action[1]
+                act_verb = action[0]
+                act_supp = action[-1]
 
-        self.take_goals, self.open_goals, self.put_goals = [], [], []
-        for act_idx, action in enumerate(course_of_action):
-            action = action.split()
-            act_item = action[1]
-            act_verb = action[0]
-            act_supp = action[-1]
-
-            if act_verb == 'open':
-                self.open_goals.append([act_idx, act_item])
-            elif act_verb == 'take':
-                self.take_goals.append([act_idx, act_item]) # We don't need the act_supp here \
-                # because we care about the distinct name of the item we take not \
-                # where we take it from
-            elif act_verb == 'put':
-                self.put_goals = [act_idx, act_item, act_supp] # Not append because we \
-                # assume only 1 ultimate goal since multiple goals would higly likely mean \
-                # carrying more than 1 object which it can't
+                if act_verb == 'open':
+                    self.open_goals.append([act_idx, act_item])
+                elif act_verb == 'take':
+                    self.take_goals.append([act_idx, act_item]) # We don't need the act_supp here \
+                    # because we care about the distinct name of the item we take not \
+                    # where we take it from
+                elif act_verb == 'put':
+                    self.put_goals = [act_idx, act_item, act_supp] # Not append because we \
+                    # assume only 1 ultimate goal since multiple goals would higly likely mean \
+                    # carrying more than 1 object which it can't
 
 
 class Easy_Env(MyMG_Env):
@@ -46,6 +47,7 @@ class Easy_Env(MyMG_Env):
         super().__init__(size)
     def _gen_grid(self, width, height):
         # Create an empty grid
+        self.find_goals()
         self.grid = Grid(width, height)
 
         # Generate the surrounding walls
@@ -376,10 +378,14 @@ class Sparse_Env(MyMG_Env):
 class Dense_Easy(Dense_Env, Easy_Env):
     def __init__(self):
         super().__init__()
+        course_of_action = actions_taken['Dense_Easy']
+        self.find_goals(course_of_action) 
 
 class Sparse_Easy(Sparse_Env, Easy_Env):
     def __init__(self):
         super().__init__()
+        course_of_action = actions_taken['Sparse_Easy']
+        self.find_goals(course_of_action) 
 
 register(
     id='MiniGrid-Dense_Easy-v0',
@@ -395,10 +401,14 @@ register(
 class Dense_Easy_2(Dense_Env, Easy_Env_2):
     def __init__(self):
         super().__init__()
+        course_of_action = actions_taken['Dense_Easy_2']
+        self.find_goals(course_of_action) 
 
 class Sparse_Easy_2(Sparse_Env, Easy_Env_2):
     def __init__(self):
         super().__init__()
+        course_of_action = actions_taken['Sparse_Easy_2']
+        self.find_goals(course_of_action) 
 
 register(
     id='MiniGrid-Dense_Easy_2-v0',
