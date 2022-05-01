@@ -80,7 +80,6 @@ class Easy_Env_2(MyMG_Env):
         super().__init__(size)
         course_of_action = action_courses['Easy_2']
         self.nof_goals = len(course_of_action)
-        print(self.nof_goals)
         find_goals(self, course_of_action)
 
     def _gen_grid(self, width, height):
