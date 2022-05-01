@@ -3,13 +3,15 @@ from gym_minigrid.minigrid import *
 from gym_minigrid.register import register
 import pickle
 
-from matplotlib.pyplot import cla
+# from matplotlib.pyplot import cla
 
 # Load TextWorld output
-with open('/usr/local/lib/python3.7/dist-packages/rl-starter-files/storage/action_courses', 'rb') as fp:
-    action_courses = pickle.load(fp)
+# with open('/usr/local/lib/python3.7/dist-packages/rl-starter-files/storage/action_courses', 'rb') as fp:
+#     action_courses = pickle.load(fp)
 
-# actions_taken = ['take apple', 'put apple on table'] # Wrong right now
+action_courses = {'Easy': ['take apple', 'put apple on table'], \
+     'Easy_2': ['open door', 'take apple', 'put apple on table'], \
+         'Medium': ['open door', 'open fridge', 'take apple', 'put apple on table']}
 
 def find_goals(self, course_of_action):
             self.take_goals, self.open_goals, self.put_goals = [], [], []
@@ -78,6 +80,7 @@ class Easy_Env_2(MyMG_Env):
         super().__init__(size)
         course_of_action = action_courses['Easy_2']
         self.nof_goals = len(course_of_action)
+        print(self.nof_goals)
         find_goals(self, course_of_action)
 
     def _gen_grid(self, width, height):
@@ -110,7 +113,11 @@ class Easy_Env_2(MyMG_Env):
 
 class Medium_Env(MyMG_Env):
     def __init__(self):
-        super().__init__(size=6)
+        super().__init__(size=5)
+        course_of_action = action_courses['Medium']
+        self.nof_goals = len(course_of_action)
+        find_goals(self, course_of_action)
+
     def _gen_grid(self, width, height):
         # Create an empty grid
         self.grid = Grid(width, height)
@@ -145,7 +152,6 @@ class Medium_Env(MyMG_Env):
         self.put_obj(table, self.goal_width, self.goal_height)
 
         self.mission = "put apple on table" 
-    
 
 class Hard_Env(MyMG_Env):
     def __init__(self):
