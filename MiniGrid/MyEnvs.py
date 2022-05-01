@@ -47,6 +47,7 @@ class Easy_Env(MyMG_Env):
     def __init__(self, size=5):
         super().__init__(size)
         course_of_action = action_courses['Easy']
+        self.nof_goals = len(course_of_action)
         find_goals(self, course_of_action)
 
     def _gen_grid(self, width, height):
@@ -76,6 +77,7 @@ class Easy_Env_2(MyMG_Env):
     def __init__(self, size=5):
         super().__init__(size)
         course_of_action = action_courses['Easy_2']
+        self.nof_goals = len(course_of_action)
         find_goals(self, course_of_action)
 
     def _gen_grid(self, width, height):
@@ -262,7 +264,7 @@ class Dense_Env(MyMG_Env):
                     # but that will never happen in MiniGrid 
                     if self.goals_done == act[0] and self.carrying.name == act[1]:
                         self.goals_done += 1
-                        reward = self._reward()
+                        reward = self._myreward()
 
         # Drop an object
         elif action == self.actions.drop:
@@ -277,7 +279,7 @@ class Dense_Env(MyMG_Env):
                 and fwd_cell.name == self.put_goals[2]:
                     self.goals_done = 0
                     done = True
-                    reward = self._reward()
+                    reward = self._myreward()
 
         # Toggle/activate an object
         elif action == self.actions.toggle:
@@ -287,7 +289,7 @@ class Dense_Env(MyMG_Env):
                     if self.goals_done == act[0] and fwd_cell.name == act[1]: # If 2 open actions followed \     
                     # one another there would be a problem but that will never happen in MiniGrid 
                         self.goals_done += 1
-                        reward = self._reward()
+                        reward = self._myreward()
 
 
         # Done action (not used by default)
