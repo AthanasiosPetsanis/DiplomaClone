@@ -6,12 +6,12 @@ import pickle
 # from matplotlib.pyplot import cla
 
 # Load TextWorld output
-# with open('/usr/local/lib/python3.7/dist-packages/rl-starter-files/storage/action_courses', 'rb') as fp:
-#     action_courses = pickle.load(fp)
+with open('/usr/local/lib/python3.7/dist-packages/rl-starter-files/storage/action_courses', 'rb') as fp:
+    action_courses = pickle.load(fp)
 
-action_courses = {'Easy': ['take apple', 'put apple on table'], \
-     'Easy_2': ['open door', 'take apple', 'put apple on table'], \
-         'Medium': ['open door', 'open fridge', 'take apple', 'put apple on table']}
+# action_courses = {'Easy': ['take apple', 'put apple on table'], \
+#      'Easy_2': ['open door', 'take apple', 'put apple on table'], \
+#          'Medium': ['open door', 'open fridge', 'take apple from fridge', 'put apple on table']}
 
 def find_goals(self, course_of_action):
             self.take_goals, self.open_goals, self.put_goals = [], [], []
