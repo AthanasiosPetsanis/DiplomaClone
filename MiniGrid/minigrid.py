@@ -276,11 +276,12 @@ class Door(WorldObj):
             fill_coords(img, point_in_circle(cx=0.75, cy=0.50, r=0.08), c)
 
 class Key(WorldObj):
-    def __init__(self, color='blue'):
+    def __init__(self, color='blue', pickable=True):
         super(Key, self).__init__('key', color)
+        self.pickable = pickable
 
     def can_pickup(self):
-        return True
+        return self.pickable
 
     def render(self, img):
         c = COLORS[self.color]
@@ -297,22 +298,24 @@ class Key(WorldObj):
         fill_coords(img, point_in_circle(cx=0.56, cy=0.28, r=0.064), (0,0,0))
 
 class Ball(WorldObj):
-    def __init__(self, color='blue'):
+    def __init__(self, color='blue', pickable=True):
         super(Ball, self).__init__('ball', color)
+        self.pickable = pickable
 
     def can_pickup(self):
-        return True
+        return self.pickable
 
     def render(self, img):
         fill_coords(img, point_in_circle(0.5, 0.5, 0.31), COLORS[self.color])
 
 class Box(WorldObj):
-    def __init__(self, color, contains=None):
+    def __init__(self, color, contains=None, pickable=True):
         super(Box, self).__init__('box', color)
         self.contains = contains
+        self.pickable = pickable
 
     def can_pickup(self):
-        return True
+        return self.pickable
 
     def render(self, img):
         c = COLORS[self.color]
@@ -824,13 +827,13 @@ class MiniGridEnv(gym.Env):
         Compute the reward to be given upon success
         """
 
-        return 1 - 0.9 * (self.step_count / self.max_steps)
+        return 10*(1 - 0.9 * (self.step_count / self.max_steps))
 
     def _myreward(self):
         """
         Dense Rewarding. Each sub-goal rewards 1/number_of_goals for a total of 1 as before
         """
-        return (1 - 0.9 * (self.step_count / self.max_steps ))/ self.nof_goals
+        return 10*(1 - 0.9 * (self.step_count / self.max_steps ))/ self.nof_goals
 
     def _rand_int(self, low, high):
         """
