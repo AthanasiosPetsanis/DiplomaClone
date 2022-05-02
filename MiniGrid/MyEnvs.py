@@ -328,7 +328,7 @@ class Dense_Env(MyMG_Env):
                 and fwd_cell.name == self.put_goals[2]:
                     self.goals_done = 0
                     done = True
-                    reward = self._myreward() + 40
+                    reward = 50
                     # reward = self._reward()
 
         # Toggle/activate an object
@@ -409,7 +409,7 @@ class Sparse_Env(MyMG_Env):
                 if (fwd_pos == [self.goal_width, self.goal_height]).all() \
                 and self.carrying.name == self.put_goals[1] and fwd_cell.name == self.put_goals[-1]:
                     done = True
-                    reward = self._reward() + 40
+                    reward = 50
 
 
         # Toggle/activate an object
