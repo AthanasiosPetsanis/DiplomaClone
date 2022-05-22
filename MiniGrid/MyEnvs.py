@@ -155,7 +155,7 @@ class Medium_Env(MyMG_Env):
 
 class Medium_Env_2(MyMG_Env):
     def __init__(self):
-        super().__init__(size=7)
+        super().__init__(size=6)
         course_of_action = action_courses['Medium_2']
         self.nof_goals = len(course_of_action)
         find_goals(self, course_of_action)
@@ -312,8 +312,8 @@ class Dense_Env(MyMG_Env):
                     # but that will never happen in MiniGrid 
                     if self.goals_done == act[0] and self.carrying.name == act[1]:
                         self.goals_done += 1
-                        reward = self._myreward()
-                        # reward = self._reward()
+#                         reward = self._myreward()
+                        reward = self._reward()
 
         # Drop an object
         elif action == self.actions.drop:
@@ -339,8 +339,8 @@ class Dense_Env(MyMG_Env):
                     if self.goals_done == act[0] and fwd_cell.name == act[1]: # If 2 open actions followed \     
                     # one another there would be a problem but that will never happen in MiniGrid 
                         self.goals_done += 1
-                        reward = self._myreward()
-                        # reward = self._reward()
+#                         reward = self._myreward()
+                        reward = self._reward()
 
 
         # Done action (not used by default)
