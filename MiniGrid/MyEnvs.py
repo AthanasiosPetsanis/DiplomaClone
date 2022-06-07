@@ -273,8 +273,6 @@ class Dense_Env(MyMG_Env):
 
     def step(self, action):
         
-        print('STEP')
-
         self.step_count += 1
         reward = 0
         done = False
@@ -341,8 +339,8 @@ class Dense_Env(MyMG_Env):
                     if self.goals_done == act[0] and fwd_cell.name == act[1]: # If 2 open actions followed \     
                     # one another there would be a problem but that will never happen in MiniGrid 
                         self.goals_done += 1
-#                         reward = self._myreward()
-                        reward = self._reward()
+                        reward = self._myreward()
+#                         reward = self._reward()
 
 
         # Done action (not used by default)
