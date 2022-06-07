@@ -18,7 +18,8 @@ COLORS = {
     'purple': np.array([112, 39, 195]),
     'yellow': np.array([255, 255, 0]),
     'grey'  : np.array([100, 100, 100]), 
-    'brown' : np.array([101, 67, 33])
+    'brown' : np.array([101, 67, 33]),
+    'custom': np.array([255, 255, 255])
 }
 
 COLOR_NAMES = sorted(list(COLORS.keys()))
@@ -31,7 +32,8 @@ COLOR_TO_IDX = {
     'purple': 3,
     'yellow': 4,
     'grey'  : 5,
-    'brown' : 6
+    'brown' : 6,
+    'custom': 7
 }
 
 IDX_TO_COLOR = dict(zip(COLOR_TO_IDX.values(), COLOR_TO_IDX.keys()))
@@ -77,7 +79,8 @@ class WorldObj:
     Base class for grid world objects
     """
 
-    def __init__(self, type, color):
+    def __init__(self, type, color, rgb=[255, 255, 255]):
+        COLORS['custom'] = np.array(rgb)
         assert type in OBJECT_TO_IDX, type
         assert color in COLOR_TO_IDX, color
         self.type = type
@@ -298,8 +301,8 @@ class Key(WorldObj):
         fill_coords(img, point_in_circle(cx=0.56, cy=0.28, r=0.064), (0,0,0))
 
 class Ball(WorldObj):
-    def __init__(self, color='blue', pickable=True):
-        super(Ball, self).__init__('ball', color)
+    def __init__(self, color='blue', pickable=True, rgb=[255, 255, 255]):
+        super(Ball, self).__init__('ball', color, rgb)
         self.pickable = pickable
 
     def can_pickup(self):
@@ -646,7 +649,7 @@ class MiniGridEnv(gym.Env):
         toggle = 5
 
         # Done completing task
-        done = 6
+        # done = 6
 
     def __init__(
         self,
@@ -827,13 +830,13 @@ class MiniGridEnv(gym.Env):
         Compute the reward to be given upon success
         """
 
-        return 10*(1 - 0.9 * (self.step_count / self.max_steps))
+        return (1 - 0.9 * (self.step_count / self.max_steps))
 
     def _myreward(self):
         """
         Dense Rewarding. Each sub-goal rewards 1/number_of_goals for a total of 1 as before
         """
-        return 10*(1 - 0.9 * (self.step_count / self.max_steps ))/ self.nof_goals
+        return 100*(1 - 0.9 * (self.step_count / self.max_steps ))/ self.nof_goals
 
     def _rand_int(self, low, high):
         """
@@ -1161,8 +1164,8 @@ class MiniGridEnv(gym.Env):
                 fwd_cell.toggle(self, fwd_pos)
 
         # Done action (not used by default)
-        elif action == self.actions.done:
-            pass
+        # elif action == self.actions.done:
+        #     pass
 
         else:
             assert False, "unknown action"
