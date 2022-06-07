@@ -155,7 +155,7 @@ class Medium_Env(MyMG_Env):
 
 class Medium_Env_2(MyMG_Env):
     def __init__(self):
-        super().__init__(size=7)
+        super().__init__(size=6)
         course_of_action = action_courses['Medium_2']
         self.nof_goals = len(course_of_action)
         find_goals(self, course_of_action)
