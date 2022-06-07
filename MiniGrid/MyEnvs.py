@@ -272,6 +272,8 @@ class Dense_Env(MyMG_Env):
         super().__init__()
 
     def step(self, action):
+        
+        print('STEP')
 
         self.step_count += 1
         reward = 0
