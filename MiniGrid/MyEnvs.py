@@ -312,8 +312,8 @@ class Dense_Env(MyMG_Env):
                     # but that will never happen in MiniGrid 
                     if self.goals_done == act[0] and self.carrying.name == act[1]:
                         self.goals_done += 1
-                        reward = self._myreward()
-#                         reward = self._reward()
+#                         reward = self._myreward()
+                        reward = self._reward()
 
         # Drop an object
         elif action == self.actions.drop:
@@ -328,7 +328,7 @@ class Dense_Env(MyMG_Env):
                 and fwd_cell.name == self.put_goals[2]:
                     self.goals_done = 0
                     done = True
-                    reward = 500
+                    reward = 10
 #                     reward = self._reward()
 
         # Toggle/activate an object
@@ -339,8 +339,8 @@ class Dense_Env(MyMG_Env):
                     if self.goals_done == act[0] and fwd_cell.name == act[1]: # If 2 open actions followed \     
                     # one another there would be a problem but that will never happen in MiniGrid 
                         self.goals_done += 1
-                        reward = self._myreward()
-#                         reward = self._reward()
+#                         reward = self._myreward()
+                        reward = self._reward()
 
 
         # Done action (not used by default)
