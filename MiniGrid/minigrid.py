@@ -829,14 +829,12 @@ class MiniGridEnv(gym.Env):
         """
         Compute the reward to be given upon success
         """
-        print('_REWARD')
         return (1 - 0.9 * (self.step_count / self.max_steps))
 
     def _myreward(self):
         """
         Dense Rewarding. Each sub-goal rewards 1/number_of_goals for a total of 1 as before
         """
-        print('MY_REWARD')
         return 1*(1 - 0.9 * (self.step_count / self.max_steps ))/ self.nof_goals
 
     def _rand_int(self, low, high):
