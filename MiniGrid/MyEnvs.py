@@ -32,6 +32,8 @@ def find_goals(self, course_of_action):
                     self.put_goals = [act_idx, act_item, act_supp] # Not append because we \
                     # assume only 1 ultimate goal since multiple goals would higly likely mean \
                     # carrying more than 1 object which it can't
+                    
+goal_rewards = [1,3,5,7,10]
 
 class MyMG_Env(MiniGridEnv):
     """
@@ -313,7 +315,8 @@ class Dense_Env(MyMG_Env):
                     if self.goals_done == act[0] and self.carrying.name == act[1]:
                         self.goals_done += 1
 #                         reward = self._myreward()
-                        reward = self._reward()
+#                         reward = self._reward()
+                        reward = goal_rewards[self.goals_done]
 
         # Drop an object
         elif action == self.actions.drop:
@@ -340,9 +343,8 @@ class Dense_Env(MyMG_Env):
                     # one another there would be a problem but that will never happen in MiniGrid 
                         self.goals_done += 1
 #                         reward = self._myreward()
-                        reward = self._reward()
-                        if self.goals_done==1:
-                            reward = 10
+#                         reward = self._reward()
+                        reward = goal_rewards[self.goals_done]
 
 
         # Done action (not used by default)
