@@ -315,8 +315,8 @@ class Dense_Env(MyMG_Env):
                     if self.goals_done == act[0] and self.carrying.name == act[1]:
                         self.goals_done += 1
 #                         reward = self._myreward()
-#                         reward = self._reward()
-                        reward = goal_rewards[-self.goals_done]
+                        reward = self._reward()
+#                         reward = goal_rewards[-self.goals_done]
 
         # Drop an object
         elif action == self.actions.drop:
@@ -343,8 +343,8 @@ class Dense_Env(MyMG_Env):
                     # one another there would be a problem but that will never happen in MiniGrid 
                         self.goals_done += 1
 #                         reward = self._myreward()
-#                         reward = self._reward()
-                        reward = goal_rewards[-self.goals_done]
+                        reward = self._reward()
+#                         reward = goal_rewards[-self.goals_done]
 
 
         # Done action (not used by default)
