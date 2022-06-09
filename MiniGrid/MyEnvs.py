@@ -316,7 +316,7 @@ class Dense_Env(MyMG_Env):
                         self.goals_done += 1
 #                         reward = self._myreward()
 #                         reward = self._reward()
-                        reward = goal_rewards[self.goals_done]
+                        reward = goal_rewards[-self.goals_done]
 
         # Drop an object
         elif action == self.actions.drop:
@@ -344,7 +344,7 @@ class Dense_Env(MyMG_Env):
                         self.goals_done += 1
 #                         reward = self._myreward()
 #                         reward = self._reward()
-                        reward = goal_rewards[self.goals_done]
+                        reward = goal_rewards[-self.goals_done]
 
 
         # Done action (not used by default)
