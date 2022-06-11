@@ -1163,8 +1163,8 @@ class MiniGridEnv(gym.Env):
                 fwd_cell.toggle(self, fwd_pos)
 
         # Done action (not used by default)
-        # elif action == self.actions.done:
-        #     pass
+        elif action == self.actions.done:
+            pass
 
         else:
             assert False, "unknown action"
