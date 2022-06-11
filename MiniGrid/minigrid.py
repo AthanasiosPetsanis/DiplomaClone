@@ -649,7 +649,7 @@ class MiniGridEnv(gym.Env):
         toggle = 5
 
         # Done completing task
-        # done = 6
+        done = 6
 
     def __init__(
         self,
