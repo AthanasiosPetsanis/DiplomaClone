@@ -331,7 +331,7 @@ class Dense_Env(MyMG_Env):
                 and fwd_cell.name == self.put_goals[2]:
                     self.goals_done = 0
                     done = True
-                    reward = 1
+                    reward = 500
 #                     reward = self._reward()
 
         # Toggle/activate an object
