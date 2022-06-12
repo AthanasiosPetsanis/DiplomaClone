@@ -316,7 +316,7 @@ class Dense_Env(MyMG_Env):
                         self.goals_done += 1
 #                         reward = self._myreward()
 #                         reward = self._reward()
-                        reward = goal_rewards[self.goals_done]
+                        reward = goal_rewards[self.goals_done] * self._reward()
 
         # Drop an object
         elif action == self.actions.drop:
@@ -331,7 +331,7 @@ class Dense_Env(MyMG_Env):
                 and fwd_cell.name == self.put_goals[2]:
                     self.goals_done = 0
                     done = True
-                    reward = 10
+                    reward = 10 * self._reward()
 #                     reward = self._reward()
 
         # Toggle/activate an object
@@ -344,7 +344,7 @@ class Dense_Env(MyMG_Env):
                         self.goals_done += 1
 #                         reward = self._myreward()
 #                         reward = self._reward()
-                        reward = goal_rewards[self.goals_done]
+                        reward = goal_rewards[self.goals_done] * self._reward()
 
 
         # Done action (not used by default)
