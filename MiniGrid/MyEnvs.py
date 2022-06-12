@@ -15,7 +15,7 @@ with open('/usr/local/lib/python3.7/dist-packages/rl-starter-files/storage/actio
 #     'Medium_2': ['open door', 'open fridge', 'take apple from fridge', 'put apple on table'],
 #     'Hard': ['take key', 'open door', 'open fridge', 'take apple from fridge', 'put apple on table']}
 
-goal_rewards = [0,1,3,5,7,10]
+goal_rewards = [1,3,5,7,10]
 
 def find_goals(self, course_of_action):
             self.take_goals, self.open_goals, self.put_goals = [], [], []
