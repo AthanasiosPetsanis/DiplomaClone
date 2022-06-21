@@ -130,7 +130,7 @@ class Q_agent():
                             if action==obj[i] and infos['location'].lower()==rooms[i].lower() and goals_done[i]==0:
                                 reward += 200 #/step
                                 goals_done[i] = 1
-                                if sum(goals_done)==self.obj_len: done = True; print('LUL')
+                                if sum(goals_done)==self.obj_len: done = True
                     except: print('Unable to reward the inputed goal')
 
                     Ep_indexes.append([st_index, action_index, reward])
