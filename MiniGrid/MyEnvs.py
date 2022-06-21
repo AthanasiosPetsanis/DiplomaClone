@@ -368,14 +368,14 @@ class Dense_Env(MyMG_Env):
                         self.goals_done += 1
                         # reward = self._myreward()
                         # reward = self._reward()
-                        reward = goal_rewards[-self.goals_done]
+                        reward = goal_rewards[self.goals_done]
 
         # Drop an object
         elif action == self.actions.drop:
-            if not fwd_cell and self.carrying:
-                self.grid.set(*fwd_pos, self.carrying)
-                self.carrying.cur_pos = fwd_pos
-                self.carrying = None
+#             if not fwd_cell and self.carrying:
+#                 self.grid.set(*fwd_pos, self.carrying)
+#                 self.carrying.cur_pos = fwd_pos
+#                 self.carrying = None
             if self.carrying != None:
                 if (fwd_pos == [self.goal_width, self.goal_height]).all() \
                 and self.goals_done == self.put_goals[0] \
@@ -396,7 +396,7 @@ class Dense_Env(MyMG_Env):
                         self.goals_done += 1
                         # reward = self._myreward()
                         # reward = self._reward()
-                        reward = goal_rewards[-self.goals_done]
+                        reward = goal_rewards[self.goals_done]
 
 
         # Done action (not used by default)
