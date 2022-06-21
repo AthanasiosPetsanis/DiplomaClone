@@ -24,7 +24,7 @@ from textworld import EnvInfos
 # -------------------------------------
 
 # Load Game function
-def load_game(game_file, max_steps=1e3):
+def load_game(game_file, max_steps=4e2):
 
     request_infos = EnvInfos(inventory=True, admissible_commands=True, entities=True, won=True, lost=True, intermediate_reward=True,
                              description=True, location=True, objective=True, score=True, moves=True)
