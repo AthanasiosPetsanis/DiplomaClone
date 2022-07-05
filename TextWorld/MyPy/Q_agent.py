@@ -142,8 +142,6 @@ class Q_agent():
                         break
 
                 self.back_prop(Ep_indexes, gamma, learning_rate, new_st_index)
-                # print(States)
-                # print(Q_matrix)
 
                 self.expl = min_expl + (max_expl - min_expl)*np.exp(-expl_decay_rate*self.total_eps) 
 
