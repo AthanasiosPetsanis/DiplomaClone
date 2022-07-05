@@ -235,6 +235,7 @@ class Door(WorldObj):
             if isinstance(env.carrying, Key) and env.carrying.color == self.color:
                 self.is_locked = False
                 self.is_open = True
+                env.carrying = None
                 return True
             return False
 
@@ -835,7 +836,7 @@ class MiniGridEnv(gym.Env):
         """
         Dense Rewarding. Each sub-goal rewards 1/number_of_goals for a total of 1 as before
         """
-        return 1*(1 - 0.9 * (self.step_count / self.max_steps ))/ self.nof_goals
+        return 100*(1 - 0.9 * (self.step_count / self.max_steps ))/ self.nof_goals
 
     def _rand_int(self, low, high):
         """
