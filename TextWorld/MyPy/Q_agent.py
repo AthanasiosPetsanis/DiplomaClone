@@ -161,7 +161,7 @@ class Q_agent():
 
         plt.figure(1)
         moves_plt, = plt.plot(np.arange(1,len(self.avg_moves)+1), self.avg_moves, label='Moves')
-        plt.xlabel('Every 10nth episode')
+        plt.xlabel('Every 10th episode')
         plt.ylabel('Average of 10 eps', color='C0')
         plt.twinx()
         expl_plt, = plt.plot(np.arange(1,len(self.expl_history)+1), self.expl_history, label='Expl', color='orange')
