@@ -15,7 +15,18 @@ with open('/usr/local/lib/python3.7/dist-packages/rl-starter-files/storage/actio
 #     'Medium_2': ['open door', 'open fridge', 'take apple from fridge', 'put apple on table'],
 #     'Hard': ['take key', 'open door', 'open fridge', 'take apple from fridge', 'put apple on table']}
 
-goal_rewards = [1,3,5,7,9]
+# Make progressive rewards
+max_course = 0
+for course in action_courses:
+    course = action_courses[str(course)]
+    if len(course) > max_course:
+        max_course = len(course)
+goal_rewards = []
+for i in range(max_course):
+    goal_rewards.append(2*i+1)
+
+# Make regressive rewards
+goal_rewards.reverse()
 
 def find_goals(self, course_of_action):
             self.take_goals, self.open_goals, self.put_goals = [], [], []
