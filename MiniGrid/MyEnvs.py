@@ -476,7 +476,7 @@ class Sparse_Env(MyMG_Env):
                 if (fwd_pos == [self.goal_width, self.goal_height]).all() \
                 and self.carrying.name == self.put_goals[1] and fwd_cell.name == self.put_goals[-1]:
                     done = True
-                    reward = 50
+                    reward = 100
 
 
         # Toggle/activate an object
