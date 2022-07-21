@@ -128,7 +128,7 @@ class Q_agent():
                     try:
                         for i in range(self.obj_len):
                             if action==obj[i] and infos['location'].lower()==rooms[i].lower() and goals_done[i]==0:
-                                reward += 200 #/step
+                                reward += 100 + 100/step
                                 goals_done[i] = 1
                                 if sum(goals_done)==self.obj_len: done = True
                     except: print('Unable to reward the inputed goal')
