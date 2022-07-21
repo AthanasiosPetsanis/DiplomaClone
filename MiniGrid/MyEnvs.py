@@ -23,10 +23,10 @@ for course in action_courses:
         max_course = len(course)
 goal_rewards = []
 for i in range(max_course):
-    goal_rewards.append(2*i+1)
+    goal_rewards.append(10/(max_course-i+1))
 
 # Make regressive rewards
-goal_rewards.reverse()
+# goal_rewards.reverse()
 
 def find_goals(self, course_of_action):
             self.take_goals, self.open_goals, self.put_goals = [], [], []
@@ -379,7 +379,7 @@ class Dense_Env(MyMG_Env):
                         self.goals_done += 1
                         # reward = self._myreward()
                         # reward = self._reward()
-                        reward = goal_rewards[self.goals_done]
+                        reward = goal_rewards[self.goals_done] * self._reward()
 
         # Drop an object
         elif action == self.actions.drop:
@@ -394,7 +394,7 @@ class Dense_Env(MyMG_Env):
                 and fwd_cell.name == self.put_goals[2]:
                     self.goals_done = 0
                     done = True
-                    reward = 100
+                    reward = 100 * self._reward()
                     # reward = self._reward()
 
         # Toggle/activate an object
@@ -407,7 +407,7 @@ class Dense_Env(MyMG_Env):
                         self.goals_done += 1
                         # reward = self._myreward()
                         # reward = self._reward()
-                        reward = goal_rewards[self.goals_done]
+                        reward = goal_rewards[self.goals_done] * self._reward()
 
 
         # Done action (not used by default)
@@ -476,7 +476,7 @@ class Sparse_Env(MyMG_Env):
                 if (fwd_pos == [self.goal_width, self.goal_height]).all() \
                 and self.carrying.name == self.put_goals[1] and fwd_cell.name == self.put_goals[-1]:
                     done = True
-                    reward = 100
+                    reward = 100 * self._reward()
 
 
         # Toggle/activate an object
