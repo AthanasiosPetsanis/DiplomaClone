@@ -75,8 +75,8 @@ def tic():
     start = time()
     return start
     
-def toc(start):
+def toc(start, label):
     end = time(); t_sec = end-start; mins = t_sec//60; secs = t_sec-mins*60
-    print(f"Training took {mins} minutes and {secs} seconds")
+    print(f"{label} took {mins} minutes and {secs} seconds")
     
 
