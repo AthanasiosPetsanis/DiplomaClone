@@ -70,7 +70,7 @@ class Q_agent():
     def train(self, max_epochs=5, max_eps=1000, render=False, min_expl=0.01, max_expl=1, manual=False,
             learning_rate=0.8, expl_decay_rate=0.005, gamma=0.95, title='Q_Agent', neg_reward=0, user_input=None):
 
-        start = time()
+        tic()
         if manual and user_input != None:
             print('Either manual input a command via the command line or inputed using user_input argument, but not both')
         elif manual:
@@ -170,8 +170,7 @@ class Q_agent():
         plt.title(title)
         plt.show()
 
-        end = time(); t_sec = end-start; mins = t_sec//60; secs = t_sec-mins*60
-        print(f"Training took {mins} minutes and {secs} seconds")
+        toc()
         
         cnt = 0
         for state in self.States:
