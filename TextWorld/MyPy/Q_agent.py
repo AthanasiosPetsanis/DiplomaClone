@@ -170,7 +170,7 @@ class Q_agent():
         plt.title(title)
         plt.show()
 
-        toc(start)
+        toc(start, 'Training')
         
         cnt = 0
         for state in self.States:
