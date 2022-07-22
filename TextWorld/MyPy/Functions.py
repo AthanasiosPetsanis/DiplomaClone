@@ -1,5 +1,6 @@
 import gym
 import textworld.gym
+from time import time
 from textworld import EnvInfos
 
 # Register a text-based game as a new Gym's environment.
@@ -68,5 +69,14 @@ def inv_process(inventory):
     except:
         pass
     inventory = list(filter(filterer, inventory))
-    return inventory 
+    return inventory
+
+def tic():
+    global starting_time
+    starting_time = time()
+    
+def toc():
+    end = time(); t_sec = end-starting_time; mins = t_sec//60; secs = t_sec-mins*60
+    print(f"Training took {mins} minutes and {secs} seconds")
+    
 
