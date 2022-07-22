@@ -72,11 +72,11 @@ def inv_process(inventory):
     return inventory
 
 def tic():
-    global starting_time
-    starting_time = time()
+    start = time()
+    return start
     
-def toc():
-    end = time(); t_sec = end-starting_time; mins = t_sec//60; secs = t_sec-mins*60
+def toc(start):
+    end = time(); t_sec = end-start; mins = t_sec//60; secs = t_sec-mins*60
     print(f"Training took {mins} minutes and {secs} seconds")
     
 
