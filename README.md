@@ -19,6 +19,8 @@ For _TextWorld_, we use a simple Q-learning algorithm and the architecture is a 
 
 
 ## Training
-Training is done in preconstructed environments of increasing difficulty which we made. The user-defined command is always moving an apple and placing it on the table[^1]
+Training is done in preconstructed environments of increasing difficulty which we made. The user-defined command is always moving an apple and placing it on the table[^1] The environments are the following:
+![Dense_Easy](https://user-images.githubusercontent.com/54399132/184203097-d93aff84-2723-413f-bbb1-5b476834317a.png) ![Dense_Easy_2](https://user-images.githubusercontent.com/54399132/184203239-594e1cdc-b8da-40c0-bb66-cdb5095924b1.png)
+
 
 [^1]: It helps with better comparison of the results as the diffuctly increases.
