@@ -12,5 +12,7 @@ A simple diagram of this method is depicted below:
 
 
 ## Agents
-For MiniGrid, the algorithm used for training and the architecture of the agent are defined as recommended by the designers of MiniGrid, i.e. a [PPO](https://arxiv.org/pdf/1707.06347.pdf) (Proximal Policy Optimization) algorithm and a neural network respectively. 
+For **MiniGrid**, the algorithm used for training and the architecture of the agent are defined as recommended by the designers of MiniGrid, i.e. a [PPO](https://arxiv.org/pdf/1707.06347.pdf) (Proximal Policy Optimization) algorithm and a neural network respectively. 
 More details on these can be found in the designated repository: [rl-torch](https://github.com/lcswillems/rl-starter-files)
+
+For 
