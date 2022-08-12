@@ -1,6 +1,6 @@
 # General
 This repository is cloned on Google's remote computer when the Main.ipynb file is run in GoogleColab. This way all prerequisites are installed remotely and anyone can easily run our code as long as you have a Google account.
-It is called "Diploma_Temp" because it is the work of my diploma thesis and it is  
+It is called "Diploma_Clone" because it is the work of my diploma thesis and its purpose is to get cloned.
 
 Our method is described in the following paper: TBA
 
@@ -26,6 +26,11 @@ Training is done in preconstructed environments of increasing difficulty which w
 
 ## Results
 TextWorld successfully decomposes the user-defined task into an optimal (i.e. shortest) sequence of sub-tasks and the comparison of average return between our method (using TextWolrd) and without it (without using TextWorld) shows increasing efficacy as the difficulty increases.
+
+![Easy](https://user-images.githubusercontent.com/54399132/184409022-bb990511-c86e-4626-b678-aeeba33e907a.png) ![Easy_2](https://user-images.githubusercontent.com/54399132/184409038-e07fefe5-24cd-4c07-af35-84abe04c0829.png) ![Medium](https://user-images.githubusercontent.com/54399132/184409053-6cb7a459-0360-448d-9514-9acee4ea7bd9.png) ![Medium_2](https://user-images.githubusercontent.com/54399132/184409086-74462f49-9db0-440a-b995-da5a48ffcdd4.png) ![Hard](https://user-images.githubusercontent.com/54399132/184409119-a3eb82a7-af00-4096-bfdd-3e61489e0349.png)
+
+
+
 
 
 
