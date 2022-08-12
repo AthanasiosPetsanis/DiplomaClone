@@ -1,5 +1,6 @@
-# MiniGrid_Temp
+# General
 This repository is cloned on Google's remote computer when the Main.ipynb file is run in GoogleColab. This way all prerequisites are installed remotely and anyone can easily run our code as long as you have a Google account.
+It is called "Diploma_Temp" because it is the work of my diploma thesis and it is  
 
 Our method is described in the following paper: TBA
 
