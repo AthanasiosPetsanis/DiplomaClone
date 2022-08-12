@@ -27,10 +27,11 @@ Training is done in preconstructed environments of increasing difficulty which w
 ## Results
 TextWorld successfully decomposes the user-defined task into an optimal (i.e. shortest) sequence of sub-tasks and the comparison of average return between our method (using TextWolrd) and without it (without using TextWorld) shows increasing efficacy as the difficulty increases.
 
-![Easy](https://user-images.githubusercontent.com/54399132/184409022-bb990511-c86e-4626-b678-aeeba33e907a.png) ![Easy_2](https://user-images.githubusercontent.com/54399132/184409038-e07fefe5-24cd-4c07-af35-84abe04c0829.png) ![Medium](https://user-images.githubusercontent.com/54399132/184409053-6cb7a459-0360-448d-9514-9acee4ea7bd9.png) ![Medium_2](https://user-images.githubusercontent.com/54399132/184409086-74462f49-9db0-440a-b995-da5a48ffcdd4.png) ![Hard](https://user-images.githubusercontent.com/54399132/184409119-a3eb82a7-af00-4096-bfdd-3e61489e0349.png)
+The graphs for the corresponding environments can be found in the [Results](https://github.com/AthanasiosPetsanis/Diploma_Clone/tree/main/Results) folder of this repository. 
 
 
-
+## Future Work
+The results are encouraging, but there is still a long way to go for a practical implementation on a robotic home assistant. Firstly, we aim to generalize the learning more and broaden the possible commands as well as environments. Secondly, we want to find a more realistic low level simulator that will also include manipulation tasks (i.e. robotic-arm movements). Ultimately, we hope our method in tangem with state-of-the-art existing research will produce a more reliable and smart robotic home assistant.
 
 
 
