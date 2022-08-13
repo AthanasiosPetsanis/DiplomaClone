@@ -1,6 +1,5 @@
 from turtle import color
 from gym_minigrid.minigrid import *
-from gym_minigrid.minigrid import Door, Goal, Grid, Key, MiniGridEnv, MissionSpace
 import pickle
 
 # from matplotlib.pyplot import cla
@@ -64,7 +63,7 @@ class Easy_Env(MyMG_Env):
     def __init__(self, size=5, **kwargs):
         if "max_steps" not in kwargs:
             kwargs["max_steps"] = 10 * size * size
-         mission_space = MissionSpace(mission_func=lambda: "get the apple on the table")
+        mission_space = MissionSpace(mission_func=lambda: "get the apple on the table")
         super().__init__(mission_space=mission_space, grid_size=size, **kwargs)
         course_of_action = action_courses['Easy']
         self.nof_goals = len(course_of_action)
