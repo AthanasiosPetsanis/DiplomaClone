@@ -1,5 +1,6 @@
 from turtle import color
 from gym_minigrid.minigrid import *
+from gym_minigrid.minigrid import Door, Goal, Grid, Key, MiniGridEnv, MissionSpace
 import pickle
 
 # from matplotlib.pyplot import cla
