@@ -1,5 +1,6 @@
 from turtle import color
 from gym_minigrid.minigrid import *
+from gym_minigrid.register import register
 import pickle
 
 # from matplotlib.pyplot import cla
@@ -60,11 +61,8 @@ class MyMG_Env(MiniGridEnv):
 
 
 class Easy_Env(MyMG_Env):
-    def __init__(self, size=5, **kwargs):
-        if "max_steps" not in kwargs:
-            kwargs["max_steps"] = 10 * size * size
-        mission_space = MissionSpace(mission_func=lambda: "get the apple on the table")
-        super().__init__(mission_space=mission_space, grid_size=size, **kwargs)
+    def __init__(self, size=5):
+        super().__init__(size)
         course_of_action = action_courses['Easy']
         self.nof_goals = len(course_of_action)
         find_goals(self, course_of_action)
@@ -502,115 +500,115 @@ class Sparse_Env(MyMG_Env):
 
         return obs, reward, done, {}
     
-# # Easy envs
-# class Dense_Easy(Dense_Env, Easy_Env):
-#     def __init__(self):
-#         super().__init__()
+# Easy envs
+class Dense_Easy(Dense_Env, Easy_Env):
+    def __init__(self):
+        super().__init__()
 
-# class Sparse_Easy(Sparse_Env, Easy_Env):
-#     def __init__(self):
-#         super().__init__()
+class Sparse_Easy(Sparse_Env, Easy_Env):
+    def __init__(self):
+        super().__init__()
 
-# register(
-#     id='MiniGrid-Dense_Easy-v0',
-#     entry_point='gym_minigrid.envs.MyEnvs:Dense_Easy'
-# )
+register(
+    id='MiniGrid-Dense_Easy-v0',
+    entry_point='gym_minigrid.envs.MyEnvs:Dense_Easy'
+)
 
-# register(
-#     id='MiniGrid-Sparse_Easy-v0',
-#     entry_point='gym_minigrid.envs.MyEnvs:Sparse_Easy'
-# )
+register(
+    id='MiniGrid-Sparse_Easy-v0',
+    entry_point='gym_minigrid.envs.MyEnvs:Sparse_Easy'
+)
 
-# # Easy 2
-# class Dense_Easy_2(Dense_Env, Easy_Env_2):
-#     def __init__(self):
-#         super().__init__()
+# Easy 2
+class Dense_Easy_2(Dense_Env, Easy_Env_2):
+    def __init__(self):
+        super().__init__()
 
-# class Sparse_Easy_2(Sparse_Env, Easy_Env_2):
-#     def __init__(self):
-#         super().__init__()
+class Sparse_Easy_2(Sparse_Env, Easy_Env_2):
+    def __init__(self):
+        super().__init__()
 
-# register(
-#     id='MiniGrid-Dense_Easy_2-v0',
-#     entry_point='gym_minigrid.envs.MyEnvs:Dense_Easy_2'
-# )
+register(
+    id='MiniGrid-Dense_Easy_2-v0',
+    entry_point='gym_minigrid.envs.MyEnvs:Dense_Easy_2'
+)
 
-# register(
-#     id='MiniGrid-Sparse_Easy_2-v0',
-#     entry_point='gym_minigrid.envs.MyEnvs:Sparse_Easy_2'
-# )
+register(
+    id='MiniGrid-Sparse_Easy_2-v0',
+    entry_point='gym_minigrid.envs.MyEnvs:Sparse_Easy_2'
+)
 
-# # Medium
-# class Dense_Medium(Dense_Env, Medium_Env):
-#     def __init__(self):
-#         super().__init__()
+# Medium
+class Dense_Medium(Dense_Env, Medium_Env):
+    def __init__(self):
+        super().__init__()
 
-# class Sparse_Medium(Sparse_Env, Medium_Env):
-#     def __init__(self):
-#         super().__init__()
+class Sparse_Medium(Sparse_Env, Medium_Env):
+    def __init__(self):
+        super().__init__()
 
-# register(
-#     id='MiniGrid-Dense_Medium-v0',
-#     entry_point='gym_minigrid.envs.MyEnvs:Dense_Medium'
-# )
+register(
+    id='MiniGrid-Dense_Medium-v0',
+    entry_point='gym_minigrid.envs.MyEnvs:Dense_Medium'
+)
 
-# register(
-#     id='MiniGrid-Sparse_Medium-v0',
-#     entry_point='gym_minigrid.envs.MyEnvs:Sparse_Medium'
-# )
+register(
+    id='MiniGrid-Sparse_Medium-v0',
+    entry_point='gym_minigrid.envs.MyEnvs:Sparse_Medium'
+)
 
-# # Medium_2
-# class Dense_Medium_2(Dense_Env, Medium_Env_2):
-#     def __init__(self):
-#         super().__init__()
+# Medium_2
+class Dense_Medium_2(Dense_Env, Medium_Env_2):
+    def __init__(self):
+        super().__init__()
 
-# class Sparse_Medium_2(Sparse_Env, Medium_Env_2):
-#     def __init__(self):
-#         super().__init__()
+class Sparse_Medium_2(Sparse_Env, Medium_Env_2):
+    def __init__(self):
+        super().__init__()
 
-# register(
-#     id='MiniGrid-Dense_Medium_2-v0',
-#     entry_point='gym_minigrid.envs.MyEnvs:Dense_Medium_2'
-# )
+register(
+    id='MiniGrid-Dense_Medium_2-v0',
+    entry_point='gym_minigrid.envs.MyEnvs:Dense_Medium_2'
+)
 
-# register(
-#     id='MiniGrid-Sparse_Medium_2-v0',
-#     entry_point='gym_minigrid.envs.MyEnvs:Sparse_Medium_2'
-# )
+register(
+    id='MiniGrid-Sparse_Medium_2-v0',
+    entry_point='gym_minigrid.envs.MyEnvs:Sparse_Medium_2'
+)
 
-# # Hard
-# class Dense_Hard(Dense_Env, Hard_Env):
-#     def __init__(self):
-#         super().__init__()
+# Hard
+class Dense_Hard(Dense_Env, Hard_Env):
+    def __init__(self):
+        super().__init__()
 
-# class Sparse_Hard(Sparse_Env, Hard_Env):
-#     def __init__(self):
-#         super().__init__()
+class Sparse_Hard(Sparse_Env, Hard_Env):
+    def __init__(self):
+        super().__init__()
 
-# register(
-#     id='MiniGrid-Dense_Hard-v0',
-#     entry_point='gym_minigrid.envs.MyEnvs:Dense_Hard'
-# )
+register(
+    id='MiniGrid-Dense_Hard-v0',
+    entry_point='gym_minigrid.envs.MyEnvs:Dense_Hard'
+)
 
-# register(
-#     id='MiniGrid-Sparse_Hard-v0',
-#     entry_point='gym_minigrid.envs.MyEnvs:Sparse_Hard'
-# )
+register(
+    id='MiniGrid-Sparse_Hard-v0',
+    entry_point='gym_minigrid.envs.MyEnvs:Sparse_Hard'
+)
 
-# class Dense_Hard_2(Dense_Env, Hard_Env_2):
-#     def __init__(self):
-#         super().__init__()
+class Dense_Hard_2(Dense_Env, Hard_Env_2):
+    def __init__(self):
+        super().__init__()
 
-# class Sparse_Hard_2(Sparse_Env, Hard_Env_2):
-#     def __init__(self):
-#         super().__init__()
+class Sparse_Hard_2(Sparse_Env, Hard_Env_2):
+    def __init__(self):
+        super().__init__()
 
-# register(
-#     id='MiniGrid-Dense_Hard_2-v0',
-#     entry_point='gym_minigrid.envs.MyEnvs:Dense_Hard_2'
-# )
+register(
+    id='MiniGrid-Dense_Hard_2-v0',
+    entry_point='gym_minigrid.envs.MyEnvs:Dense_Hard_2'
+)
 
-# register(
-#     id='MiniGrid-Sparse_Hard_2-v0',
-#     entry_point='gym_minigrid.envs.MyEnvs:Sparse_Hard_2'
-# )
+register(
+    id='MiniGrid-Sparse_Hard_2-v0',
+    entry_point='gym_minigrid.envs.MyEnvs:Sparse_Hard_2'
+)
