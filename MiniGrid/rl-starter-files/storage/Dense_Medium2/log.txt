@@ -1,0 +1,86 @@
+/home/athanasiospetsanis/.local/lib/python3.8/site-packages/rl-starter-files/scripts/train.py --algo ppo --env MiniGrid-Dense_Medium-v0 --frames 300000 --model Dense_Medium2 --recurrence 8
+
+Namespace(algo='ppo', batch_size=256, clip_eps=0.2, discount=0.99, entropy_coef=0.01, env='MiniGrid-Dense_Medium-v0', epochs=4, frames=300000, frames_per_proc=None, gae_lambda=0.95, log_interval=1, lr=0.001, max_grad_norm=0.5, mem=True, model='Dense_Medium2', optim_alpha=0.99, optim_eps=1e-08, procs=16, recurrence=8, save_interval=10, seed=1, text=False, value_loss_coef=0.5)
+
+Device: cpu
+
+Environments loaded
+
+Training status loaded
+
+Observations preprocessor loaded
+Model loaded
+
+ACModel(
+  (image_conv): Sequential(
+    (0): Conv2d(3, 16, kernel_size=(2, 2), stride=(1, 1))
+    (1): ReLU()
+    (2): MaxPool2d(kernel_size=(2, 2), stride=(2, 2), padding=0, dilation=1, ceil_mode=False)
+    (3): Conv2d(16, 32, kernel_size=(2, 2), stride=(1, 1))
+    (4): ReLU()
+    (5): Conv2d(32, 64, kernel_size=(2, 2), stride=(1, 1))
+    (6): ReLU()
+  )
+  (memory_rnn): LSTMCell(64, 64)
+  (actor): Sequential(
+    (0): Linear(in_features=64, out_features=64, bias=True)
+    (1): Tanh()
+    (2): Linear(in_features=64, out_features=6, bias=True)
+  )
+  (critic): Sequential(
+    (0): Linear(in_features=64, out_features=64, bias=True)
+    (1): Tanh()
+    (2): Linear(in_features=64, out_features=1, bias=True)
+  )
+)
+
+Optimizer loaded
+
+U 1 | F 002048 | FPS 1665 | D 1 | rR:μσmM 0.00 0.00 0.00 0.00 | F:μσmM 0.0 0.0 0 0 | H 1.787 | V 0.107 | pL -1.140 | vL 5.835 | ∇ 0.364
+U 2 | F 004096 | FPS 1694 | D 2 | rR:μσmM 0.00 0.00 0.00 0.00 | F:μσmM 0.0 0.0 0 0 | H 1.780 | V 0.316 | pL -0.635 | vL 3.332 | ∇ 0.551
+U 3 | F 006144 | FPS 1728 | D 3 | rR:μσmM 2.00 7.75 0.00 32.00 | F:μσmM 21.9 84.7 0.0 350.0 | H 1.767 | V 0.571 | pL -0.462 | vL 2.638 | ∇ 0.351
+U 4 | F 008192 | FPS 1644 | D 4 | rR:μσmM 2.00 7.75 0.00 32.00 | F:μσmM 21.9 84.7 0.0 350.0 | H 1.744 | V 0.564 | pL -0.089 | vL 0.523 | ∇ 0.272
+U 5 | F 010240 | FPS 1643 | D 6 | rR:μσmM 2.00 7.75 0.00 32.00 | F:μσmM 21.9 84.7 0.0 350.0 | H 1.759 | V 0.564 | pL 0.087 | vL 0.049 | ∇ 0.072
+U 6 | F 012288 | FPS 1589 | D 7 | rR:μσmM 2.00 7.75 0.00 32.00 | F:μσmM 21.9 84.7 0.0 350.0 | H 1.757 | V 0.503 | pL 0.040 | vL 0.103 | ∇ 0.103
+U 7 | F 014336 | FPS 1594 | D 8 | rR:μσmM 2.00 7.75 0.00 32.00 | F:μσmM 21.9 84.7 0.0 350.0 | H 1.743 | V 0.504 | pL -0.118 | vL 1.106 | ∇ 0.446
+U 8 | F 016384 | FPS 1512 | D 10 | rR:μσmM 22.50 4.61 10.00 32.00 | F:μσmM 958.3 157.1 350.0 1000.0 | H 1.758 | V 0.526 | pL -0.123 | vL 1.225 | ∇ 0.589
+/home/athanasiospetsanis/.local/lib/python3.8/site-packages/rl-starter-files/scripts/train.py --algo ppo --env MiniGrid-Dense_Medium-v0 --frames 300000 --model Dense_Medium2 --recurrence 8
+
+Namespace(algo='ppo', batch_size=256, clip_eps=0.2, discount=0.99, entropy_coef=0.01, env='MiniGrid-Dense_Medium-v0', epochs=4, frames=300000, frames_per_proc=None, gae_lambda=0.95, log_interval=1, lr=0.001, max_grad_norm=0.5, mem=True, model='Dense_Medium2', optim_alpha=0.99, optim_eps=1e-08, procs=16, recurrence=8, save_interval=10, seed=1, text=False, value_loss_coef=0.5)
+
+Device: cpu
+
+Environments loaded
+
+Training status loaded
+
+Observations preprocessor loaded
+Model loaded
+
+ACModel(
+  (image_conv): Sequential(
+    (0): Conv2d(3, 16, kernel_size=(2, 2), stride=(1, 1))
+    (1): ReLU()
+    (2): MaxPool2d(kernel_size=(2, 2), stride=(2, 2), padding=0, dilation=1, ceil_mode=False)
+    (3): Conv2d(16, 32, kernel_size=(2, 2), stride=(1, 1))
+    (4): ReLU()
+    (5): Conv2d(32, 64, kernel_size=(2, 2), stride=(1, 1))
+    (6): ReLU()
+  )
+  (memory_rnn): LSTMCell(64, 64)
+  (actor): Sequential(
+    (0): Linear(in_features=64, out_features=64, bias=True)
+    (1): Tanh()
+    (2): Linear(in_features=64, out_features=6, bias=True)
+  )
+  (critic): Sequential(
+    (0): Linear(in_features=64, out_features=64, bias=True)
+    (1): Tanh()
+    (2): Linear(in_features=64, out_features=1, bias=True)
+  )
+)
+
+Optimizer loaded
+
+U 1 | F 002048 | FPS 1662 | D 1 | rR:μσmM 0.00 0.00 0.00 0.00 | F:μσmM 0.0 0.0 0 0 | H 1.787 | V 0.107 | pL -1.140 | vL 5.835 | ∇ 0.364
+U 2 | F 004096 | FPS 1723 | D 2 | rR:μσmM 0.00 0.00 0.00 0.00 | F:μσmM 0.0 0.0 0 0 | H 1.780 | V 0.316 | pL -0.635 | vL 3.332 | ∇ 0.551

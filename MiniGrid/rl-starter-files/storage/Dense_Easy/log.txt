@@ -1,0 +1,41 @@
+/home/athanasiospetsanis/.local/lib/python3.8/site-packages/rl-starter-files/scripts/train.py --algo ppo --env MiniGrid-Dense_Easy-v0 --frames 100000 --model Dense_Easy --recurrence 8
+
+Namespace(algo='ppo', batch_size=256, clip_eps=0.2, discount=0.99, entropy_coef=0.01, env='MiniGrid-Dense_Easy-v0', epochs=4, frames=100000, frames_per_proc=None, gae_lambda=0.95, log_interval=1, lr=0.001, max_grad_norm=0.5, mem=True, model='Dense_Easy', optim_alpha=0.99, optim_eps=1e-08, procs=16, recurrence=8, save_interval=10, seed=1, text=False, value_loss_coef=0.5)
+
+Device: cpu
+
+Environments loaded
+
+Training status loaded
+
+Observations preprocessor loaded
+Model loaded
+
+ACModel(
+  (image_conv): Sequential(
+    (0): Conv2d(3, 16, kernel_size=(2, 2), stride=(1, 1))
+    (1): ReLU()
+    (2): MaxPool2d(kernel_size=(2, 2), stride=(2, 2), padding=0, dilation=1, ceil_mode=False)
+    (3): Conv2d(16, 32, kernel_size=(2, 2), stride=(1, 1))
+    (4): ReLU()
+    (5): Conv2d(32, 64, kernel_size=(2, 2), stride=(1, 1))
+    (6): ReLU()
+  )
+  (memory_rnn): LSTMCell(64, 64)
+  (actor): Sequential(
+    (0): Linear(in_features=64, out_features=64, bias=True)
+    (1): Tanh()
+    (2): Linear(in_features=64, out_features=6, bias=True)
+  )
+  (critic): Sequential(
+    (0): Linear(in_features=64, out_features=64, bias=True)
+    (1): Tanh()
+    (2): Linear(in_features=64, out_features=1, bias=True)
+  )
+)
+
+Optimizer loaded
+
+U 1 | F 002048 | FPS 1431 | D 1 | rR:μσmM 29.93 44.43 0.00 99.57 | F:μσmM 21.5 37.3 0.0 114.0 | H 1.767 | V 0.163 | pL -3.938 | vL 183.564 | ∇ 1.368
+U 2 | F 004096 | FPS 1518 | D 2 | rR:μσmM 87.96 5.90 78.60 98.74 | F:μσmM 154.8 64.7 36.0 256.0 | H 1.759 | V 0.505 | pL -7.588 | vL 327.586 | ∇ 2.475
+U 3 | F 006144 | FPS 1455 | D 4 | rR:μσmM 89.07 7.27 69.47 99.56 | F:μσmM 142.4 79.6 27.0 356.0 | H 1.717 | V 0.786 | pL -11.117 | vL 525.466 | ∇ 3.584
