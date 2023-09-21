@@ -1,22 +1,28 @@
-from gym_minigrid.envs.empty import *
-from gym_minigrid.envs.doorkey import *
-from gym_minigrid.envs.multiroom import *
-from gym_minigrid.envs.fetch import *
-from gym_minigrid.envs.gotoobject import *
-from gym_minigrid.envs.gotodoor import *
-from gym_minigrid.envs.putnear import *
-from gym_minigrid.envs.lockedroom import *
-from gym_minigrid.envs.keycorridor import *
-from gym_minigrid.envs.unlock import *
-from gym_minigrid.envs.unlockpickup import *
-from gym_minigrid.envs.blockedunlockpickup import *
-from gym_minigrid.envs.playground_v0 import *
-from gym_minigrid.envs.redbluedoors import *
-from gym_minigrid.envs.obstructedmaze import *
-from gym_minigrid.envs.memory import *
-from gym_minigrid.envs.fourrooms import *
-from gym_minigrid.envs.crossing import *
-from gym_minigrid.envs.lavagap import *
-from gym_minigrid.envs.dynamicobstacles import *
-from gym_minigrid.envs.distshift import *
-from gym_minigrid.envs.MyEnvs import *
+from __future__ import annotations
+
+from minigrid.envs.blockedunlockpickup import BlockedUnlockPickupEnv
+from minigrid.envs.crossing import CrossingEnv
+from minigrid.envs.distshift import DistShiftEnv
+from minigrid.envs.doorkey import DoorKeyEnv
+from minigrid.envs.dynamicobstacles import DynamicObstaclesEnv
+from minigrid.envs.empty import EmptyEnv
+from minigrid.envs.fetch import FetchEnv
+from minigrid.envs.fourrooms import FourRoomsEnv
+from minigrid.envs.gotodoor import GoToDoorEnv
+from minigrid.envs.gotoobject import GoToObjectEnv
+from minigrid.envs.keycorridor import KeyCorridorEnv
+from minigrid.envs.lavagap import LavaGapEnv
+from minigrid.envs.lockedroom import LockedRoom, LockedRoomEnv
+from minigrid.envs.memory import MemoryEnv
+from minigrid.envs.multiroom import MultiRoom, MultiRoomEnv
+from minigrid.envs.obstructedmaze import (
+    ObstructedMaze_1Dlhb,
+    ObstructedMaze_Full,
+    ObstructedMazeEnv,
+)
+from minigrid.envs.playground import PlaygroundEnv
+from minigrid.envs.putnear import PutNearEnv
+from minigrid.envs.redbluedoors import RedBlueDoorEnv
+from minigrid.envs.unlock import UnlockEnv
+from minigrid.envs.unlockpickup import UnlockPickupEnv
+from minigrid.envs.MyEnvs import *
