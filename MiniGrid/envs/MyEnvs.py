@@ -2,6 +2,9 @@ from __future__ import annotations
 
 from turtle import color
 
+from gymnasium.core import ActType, ObsType
+from typing import Any, Iterable, SupportsFloat, TypeVar
+
 from minigrid.core.grid import Grid
 from minigrid.core.mission import MissionSpace
 from minigrid.core.world_object import Door, Goal, Key, Ball, Box
@@ -12,7 +15,7 @@ import pickle, numpy as np
 # from matplotlib.pyplot import cla
 
 # Load TextWorld output
-with open('/usr/local/lib/python3.7/dist-packages/rl-starter-files/storage/action_courses', 'rb') as fp:
+with open('/home/athanasiospetsanis/miniconda3/envs/Decomposer2/lib/python3.10/site-packages/rl-starter-files/storage/action_courses', 'rb') as fp:
     action_courses = pickle.load(fp)
 
 # action_courses = {'Easy': ['take apple', 'put apple on table'], \
@@ -57,16 +60,18 @@ class MyMG_Env(MiniGridEnv):
     """
     Environment with a door and key, sparse reward
     """
-    def __init__(self, size=8, max_steps: int | None = 1000, **kwargs):
-        mission_space = MissionSpace(mission_func=self._gen_mission(""))
+    def __init__(self, size=8, max_steps: int | None = None, **kwargs):
+        if max_steps is None:
+            max_steps = 1000
+        mission_space = MissionSpace(mission_func=self._gen_mission)
         super().__init__(
             mission_space=mission_space, grid_size=size, max_steps=max_steps, **kwargs
         )
         self.goals_done = 0
 
     @staticmethod
-    def _gen_mission(string: str) -> str:
-        return string
+    def _gen_mission():
+        return "use the key to open the door and then get to the goal"
 
 
 class Easy_Env(MyMG_Env):
@@ -345,11 +350,14 @@ class Dense_Env(MyMG_Env):
     def __init__(self):
         super().__init__()
 
-    def step(self, action):
-
+    def step(
+        self, action: ActType
+    ) -> tuple[ObsType, SupportsFloat, bool, bool, dict[str, Any]]:
+        
         self.step_count += 1
         reward = 0
-        done = False
+        terminated = False
+        truncated = False
 
         # Get the position in front of the agent
         fwd_pos = self.front_pos
@@ -372,7 +380,7 @@ class Dense_Env(MyMG_Env):
             if fwd_cell == None or fwd_cell.can_overlap():
                 self.agent_pos = fwd_pos  
             if fwd_cell != None and fwd_cell.type == 'lava':
-                done = True
+                terminated = True
 
         # Pick up an object
         elif action == self.actions.pickup: 
@@ -402,7 +410,7 @@ class Dense_Env(MyMG_Env):
                 and self.carrying.name == self.put_goals[1] \
                 and fwd_cell.name == self.put_goals[2]:
                     self.goals_done = 0
-                    done = True
+                    terminated = True
                     reward = 100 * self._reward()
                     # reward = self._reward()
 
@@ -427,22 +435,25 @@ class Dense_Env(MyMG_Env):
             assert False, "unknown action"
 
         if self.step_count >= self.max_steps:
-            done = True
+            truncated = True
 
         obs = self.gen_obs()
 
-        return obs, reward, done, {}
+        return obs, reward, terminated, truncated, {}
     
 
 class Sparse_Env(MyMG_Env):
     def __init__(self):
         super().__init__()
 
-    def step(self, action):
+    def step(
+        self, action: ActType
+    ) -> tuple[ObsType, SupportsFloat, bool, bool, dict[str, Any]]:
         # Get names of end goal item and supporter
         self.step_count += 1
         reward = 0
-        done = False
+        terminated = False
+        truncated = False
 
         # Get the position in front of the agent
         fwd_pos = self.front_pos
@@ -465,7 +476,7 @@ class Sparse_Env(MyMG_Env):
             if fwd_cell == None or fwd_cell.can_overlap():
                 self.agent_pos = fwd_pos  
             if fwd_cell != None and fwd_cell.type == 'lava':
-                done = True
+                terminated = True
 
         # Pick up an object
         elif action == self.actions.pickup: 
@@ -484,7 +495,7 @@ class Sparse_Env(MyMG_Env):
             if self.carrying != None:
                 if (fwd_pos == [self.goal_width, self.goal_height]).all() \
                 and self.carrying.name == self.put_goals[1] and fwd_cell.name == self.put_goals[-1]:
-                    done = True
+                    terminated = True
                     reward = 100 * self._reward()
 
 
@@ -503,64 +514,64 @@ class Sparse_Env(MyMG_Env):
             assert False, "unknown action"
 
         if self.step_count >= self.max_steps:
-            done = True
+            truncated = True
 
         obs = self.gen_obs()
 
-        return obs, reward, done, {}
+        return obs, reward, terminated, truncated, {}
     
 # Easy envs
 class Dense_Easy(Dense_Env, Easy_Env):
-    def __init__(self):
+    def __init__(self, **kwargs):
         super().__init__()
 
 class Sparse_Easy(Sparse_Env, Easy_Env):
-    def __init__(self):
+    def __init__(self, **kwargs):
         super().__init__()
 
 # Easy 2
 class Dense_Easy_2(Dense_Env, Easy_Env_2):
-    def __init__(self):
+    def __init__(self, **kwargs):
         super().__init__()
 
 class Sparse_Easy_2(Sparse_Env, Easy_Env_2):
-    def __init__(self):
+    def __init__(self, **kwargs):
         super().__init__()
 
 # Medium
 class Dense_Medium(Dense_Env, Medium_Env):
-    def __init__(self):
+    def __init__(self, **kwargs):
         super().__init__()
 
 class Sparse_Medium(Sparse_Env, Medium_Env):
-    def __init__(self):
+    def __init__(self, **kwargs):
         super().__init__()
 
 
 # Medium_2
 class Dense_Medium_2(Dense_Env, Medium_Env_2):
-    def __init__(self):
+    def __init__(self, **kwargs):
         super().__init__()
 
 class Sparse_Medium_2(Sparse_Env, Medium_Env_2):
-    def __init__(self):
+    def __init__(self, **kwargs):
         super().__init__()
 
 
 # Hard
 class Dense_Hard(Dense_Env, Hard_Env):
-    def __init__(self):
+    def __init__(self, **kwargs):
         super().__init__()
 
 class Sparse_Hard(Sparse_Env, Hard_Env):
-    def __init__(self):
+    def __init__(self, **kwargs):
         super().__init__()
 
 
 class Dense_Hard_2(Dense_Env, Hard_Env_2):
-    def __init__(self):
+    def __init__(self, **kwargs):
         super().__init__()
 
 class Sparse_Hard_2(Sparse_Env, Hard_Env_2):
-    def __init__(self):
+    def __init__(self, **kwargs):
         super().__init__()
