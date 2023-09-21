@@ -1,4 +1,5 @@
 from textworld.MyPy.Functions import *
+import warnings
 import numpy as np
 import random
 from time import time
@@ -150,14 +151,14 @@ class Q_agent():
                     self.expl_history.append(self.expl)
                     self.avg_moves.append(sum(self.moves_history[-10::])/10)
                     
-
-        print(f"Training detected {np.shape(self.Q_matrix)} possible states")
+        print(self.Q_matrix)
+        print(f"Training detected {self.Q_matrix[0]} possible states")
         Q_printer = []
         for i in self.Q_matrix:
             Q_printer.append(np.shape(i))
         length = len(Q_printer) if len(Q_printer)<30 else 30
         print(f"Number of commands for each state: \n{Q_printer[0:length]}")
-        np.warnings.filterwarnings('ignore', category=np.VisibleDeprecationWarning)
+        warnings.filterwarnings('ignore', category=np.VisibleDeprecationWarning)
 
         plt.figure(1)
         moves_plt, = plt.plot(np.arange(1,len(self.avg_moves)+1), self.avg_moves, label='Moves')
