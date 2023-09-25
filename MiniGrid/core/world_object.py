@@ -272,12 +272,13 @@ class Ball(WorldObj):
 
 
 class Box(WorldObj):
-    def __init__(self, color, contains: WorldObj | None = None):
+    def __init__(self, color, contains: WorldObj | None = None, pickable=True):
         super().__init__("box", color)
         self.contains = contains
+        self.pickable = pickable
 
     def can_pickup(self):
-        return True
+        return self.pickable
 
     def render(self, img):
         c = COLORS[self.color]
