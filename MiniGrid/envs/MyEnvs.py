@@ -15,7 +15,7 @@ import pickle, numpy as np
 # from matplotlib.pyplot import cla
 
 # Load TextWorld output
-with open('/usr/local/lib/python3.10/dist-packages/rl-starter-files/storage/action_courses', 'rb') as fp:
+with open('/home/athanasiospetsanis/miniconda3/envs/Decomposer/lib/python3.10/site-packages/rl-starter-files/storage/action_courses', 'rb') as fp:
     action_courses = pickle.load(fp)
 
 # action_courses = {'Easy': ['take apple', 'put apple on table'], \
@@ -419,12 +419,13 @@ class Dense_Env(MyMG_Env):
             if fwd_cell:
                 fwd_cell.toggle(self, fwd_pos)
                 for act in self.open_goals:
-                    if self.goals_done == act[0] and fwd_cell.name == act[1]: # If 2 open actions followed \     
+                    if self.goals_done == act[0] and hasattr(fwd_cell, 'name'): # If 2 open actions followed \     
                     # one another there would be a problem but that will never happen in MiniGrid 
-                        self.goals_done += 1
-                        # reward = self._myreward()
-                        # reward = self._reward()
-                        reward = goal_rewards[self.goals_done] * self._reward()
+                        if fwd_cell.name == act[1]:
+                            self.goals_done += 1
+                            # reward = self._myreward()
+                            # reward = self._reward()
+                            reward = goal_rewards[self.goals_done] * self._reward()
 
 
         # Done action (not used by default)
