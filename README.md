@@ -2,7 +2,7 @@
 This repository is cloned on Google's remote computer when the Main.ipynb file is run in GoogleColab. This way all prerequisites are installed remotely and anyone can easily run our code as long as you have a Google account.
 It is called "Diploma_Clone" because it is the work of my diploma thesis and its purpose is to get cloned.
 
-Our method is described in the following paper: TBA
+Our method is described in the following paper: https://www.frontiersin.org/journals/robotics-and-ai/articles/10.3389/frobt.2023.1280578/full
 
 
 ##  Method Synopsis
@@ -33,6 +33,33 @@ The graphs for the corresponding environments can be found in the [Results](http
 ## Future Work
 The results are encouraging, but there is still a long way to go for a practical implementation on a robotic home assistant. Firstly, we aim to generalize the learning more and broaden the possible commands as well as environments. Secondly, we want to find a more realistic low level simulator that will also include manipulation tasks (i.e. robotic-arm movements). Ultimately, we hope our method in tangem with state-of-the-art existing research will produce a more reliable and smart robotic home assistant.
 
+
+# Cite as:
+*Petsanis, T., Keroglou, C., Kapoutsis, A. C., Kosmatopoulos E. B., & Sirakoulis G. Ch. (2023). Decomposing user-defined tasks in a reinforcement learning setup using TextWorld.* [[Link](https://www.frontiersin.org/journals/robotics-and-ai/articles/10.3389/frobt.2023.1280578/full)]
+
+```bibtex
+@ARTICLE{10.3389/frobt.2023.1280578,
+
+AUTHOR={Petsanis, Thanos  and Keroglou, Christoforos  and Ch. Kapoutsis, Athanasios  and Kosmatopoulos, Elias B.  and Sirakoulis, Georgios Ch. },
+
+TITLE={Decomposing user-defined tasks in a reinforcement learning setup using TextWorld},
+
+JOURNAL={Frontiers in Robotics and AI},
+
+VOLUME={10},
+
+YEAR={2023},
+
+URL={https://www.frontiersin.org/journals/robotics-and-ai/articles/10.3389/frobt.2023.1280578},
+
+DOI={10.3389/frobt.2023.1280578},
+
+ISSN={2296-9144},
+
+ABSTRACT={<p>The current paper proposes a hierarchical reinforcement learning (HRL) method to decompose a complex task into simpler sub-tasks and leverage those to improve the training of an autonomous agent in a simulated environment. For practical reasons (i.e., illustrating purposes, easy implementation, user-friendly interface, and useful functionalities), we employ two Python frameworks called TextWorld and MiniGrid. MiniGrid functions as a 2D simulated representation of the real environment, while TextWorld functions as a high-level abstraction of this simulated environment. Training on this abstraction disentangles manipulation from navigation actions and allows us to design a dense reward function instead of a sparse reward function for the lower-level environment, which, as we show, improves the performance of training. Formal methods are utilized throughout the paper to establish that our algorithm is not prevented from deriving solutions.</p>}}
+}
+
+```
 
 
 
